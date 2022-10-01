@@ -1,9 +1,6 @@
 
-.content{
-  grid-area: c;
-  background-color: rgb(126, 126, 126);
-}
-.content img {
+
+.image {
   max-width: 400px;
 }
 .item{
