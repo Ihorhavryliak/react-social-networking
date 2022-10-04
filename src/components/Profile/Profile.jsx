@@ -1,16 +1,16 @@
 import Mypost from './Mypost/Mypost';
 import s from './Profile.module.css';
+import ProfileInfo from './ProfileInfo/ProfileInfo';
 
-const Content = () => {
+const Content = (props) => {
   return (
     <div >
-      <div>
-        <img className={s.image} alt="hooo" src="https://img.freepik.com/free-photo/wide-angle-shot-of-a-single-tree-growing-under-a-clouded-sky-during-a-sunset-surrounded-by-grass_181624-22807.jpg?w=2000"></img>
-      </div>
-      <div>
-        ava + des
-      </div>
-     <Mypost />
+      <ProfileInfo/>
+      <Mypost postDate={props.profilePage.postDate} 
+      newPostText={props.profilePage.newPostText}
+      addPost={props.addPost}
+      updateNewPost={props.updateNewPost}
+       />
   </div>
   )
 }

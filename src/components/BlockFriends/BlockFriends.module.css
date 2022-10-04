@@ -1,0 +1,13 @@
+.pad{
+  margin-right: 5px;
+  display: inline-block;
+}
+.colo{
+  display: block;
+  background-color: yellow;
+  border-radius: 50px;
+  height: 20px;
+  width: 20px;
+  margin-left: 8px;
+  margin-top: 10px;
+}
