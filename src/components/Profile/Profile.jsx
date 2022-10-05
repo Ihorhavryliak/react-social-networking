@@ -8,8 +8,7 @@ const Content = (props) => {
       <ProfileInfo/>
       <Mypost postDate={props.profilePage.postDate} 
       newPostText={props.profilePage.newPostText}
-      addPost={props.addPost}
-      updateNewPost={props.updateNewPost}
+      dispatch={props.dispatch}
        />
   </div>
   )

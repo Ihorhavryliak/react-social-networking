@@ -1,4 +1,4 @@
-import store from './redux/state';
+import store from './redux/store';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
@@ -9,16 +9,13 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 
 let renderTree = (state) => {
   root.render(
-  <React.StrictMode>
+
     <BrowserRouter>
-      <App state={store.getState()} 
-      addPost={store.addPost.bind(store)} 
-      updateNewPost={store.updateNewPost.bind(store)}
-      addMessege={store.addMessege.bind(store)}
-      updateMessege={store.updateMessege.bind(store)}
+      <App state={state} 
+      dispatch={store.dispatch.bind(store)} 
       />
     </BrowserRouter>
-  </React.StrictMode>
+ 
   
 );
 

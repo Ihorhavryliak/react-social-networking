@@ -1,6 +1,8 @@
 import se from './Mypost.module.css';
 import Post from './Post/Post';
 import React from 'react';
+import {adPostActionCreat, updeteNewPostActionCreater} from './../../../redux/profile_reducer'
+
 
 const Mypost = (props) => {
   let dialogElements = props.postDate.map(phra => (<Post messege={phra.name} count={phra.count}/>))
@@ -8,12 +10,13 @@ const Mypost = (props) => {
   let newPostElement = React.createRef();
 
   let addPoster = () => {
-    props.addPost();
+    props.dispatch(adPostActionCreat());
   }
   
   let postOnChange = () => {
     let text = newPostElement.current.value;
-    props.updateNewPost(text);
+    let action = updeteNewPostActionCreater(text);
+    props.dispatch(action);
   }
   
   return (
