@@ -2,20 +2,20 @@ import se from './Dialogs.module.css';
 import DialogItem from './DialogItem/DialogItem';
 import Messege from './Messege/Messege';
 import React from 'react';
-import {adMessegeActionCreater, updateMesegeActionCreater} from './../../redux/dialogs-reducer'
 
 const Dialog = (props) => {
 
-  let dialogList = props.state.diaDate.map(names => (<DialogItem  src={names.src} name={names.name} id={names.id}/>));
-  let phraList = props.state.mesegeDate.map(phar => (<Messege messege={phar.name} />) );
+  let state = props.dialogsPage;
+  let dialogList = state.diaDate.map(names => (<DialogItem key={names.id}  src={names.src} name={names.name} id={names.id}/>));
+  let phraList = state.mesegeDate.map(phar => (<Messege key={phar.id}  messege={phar.name} />) );
   
 
   let sendTextMessege = () => {
-    props.dispatch(adMessegeActionCreater())
+    props.adMessege()
   }
   let textMessege = (e) => {
     let newText = e.target.value;
-    props.dispatch(updateMesegeActionCreater(newText));
+    props.updateMesege(newText);
   }
   return (
         <div className={se.dialogs}>
@@ -28,7 +28,7 @@ const Dialog = (props) => {
           <div>
             <div>
              <textarea placeholder='Enter your messege'
-             onChange={textMessege} value={props.state.textMessege} ></textarea>
+             onChange={textMessege} value={state.textMessege} ></textarea>
             </div>
             <div>
             <button onClick={sendTextMessege}>Send</button>

@@ -1,11 +1,13 @@
 import { NavLink } from 'react-router-dom';
+import StoreContext from '../../StoreContest';
 import BlockFriends from '../BlockFriends/BlockFriends';
 import s from './Slidebar.module.css';
 
 const Sidebar = (props) => {
 
-  let nameFrienends = props.state.frieds.map(val => (<BlockFriends name={val.name} />));
-
+      let state = props.sidebarBlockFrends;
+    
+      let nameFrienends = state.frieds.map(val => (<BlockFriends key={val.id} name={val.name} />));
 
   return (
     <nav className={s.nav}>
