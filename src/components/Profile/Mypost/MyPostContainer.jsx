@@ -1,5 +1,3 @@
-import React from 'react';
-import StoreContext from '../../../StoreContest';
 import {adPostActionCreat, updeteNewPostActionCreater} from './../../../redux/profile_reducer'
 import Mypost from './Mypost';
 import {connect} from 'react-redux'

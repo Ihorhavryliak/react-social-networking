@@ -1,5 +1,4 @@
 import { NavLink } from 'react-router-dom';
-import StoreContext from '../../StoreContest';
 import BlockFriends from '../BlockFriends/BlockFriends';
 import s from './Slidebar.module.css';
 

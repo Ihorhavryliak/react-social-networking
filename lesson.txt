@@ -44,3 +44,9 @@
 32. Context API
 33. Determinirovana - результат функції фіксований
 34. Idenpotentnost - 
+35. interface - те як ми з обєктом взаємодієм
+36. API (applicaton program interface) - взаємодію з додатком , тобто як ми з цією програмою взаємодієм
+37. Програмний сервер написаний на ноте дж
+38. Server Rest Api - набір правил 
+39. CRUD - GET -POST - PUT - DELETE
+40. axios - бібліотека 

@@ -3,7 +3,7 @@ import Post from './Post/Post';
 import React from 'react';
 
 
-const Mypost = (props) => {
+const  Mypost = (props) => {
 debugger
   let dialogElements = props.postDate.map(phra => (<Post messege={phra.name} key={phra.id} count={phra.count}/>))
   

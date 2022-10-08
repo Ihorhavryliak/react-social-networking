@@ -7,6 +7,8 @@ import Music from './components/Music/Music';
 import Setting from './components/Setting/Setting';
 import DialogsContainer from './components/Dialogs/DialogsContainer';
 import SidebarContainer from './components/Slidebar/SidebarContainer';
+import Users from './components/Users/Users';
+import UsersContainer from './components/Users/UsersContainer';
 
 
 const App = (props) => {
@@ -22,6 +24,7 @@ const App = (props) => {
             <Route exact path='/news' element={<News />} />
             <Route exact path='/music' element={<Music />} />
             <Route exact path='/setting' element={<Setting />} />
+            <Route exact path='/users' element={<UsersContainer />} />
           </Routes>
         </div>
       </div>
