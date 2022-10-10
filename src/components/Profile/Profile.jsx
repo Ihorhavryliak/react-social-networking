@@ -1,13 +1,13 @@
 import ProfileInfo from './ProfileInfo/ProfileInfo';
 import MyPostContainer from './Mypost/MyPostContainer'
 
-const Content = (props) => {
+const Profile = (props) => {
 
   return (
     <div >
-      <ProfileInfo/>
+      <ProfileInfo profile={props.profile}/>
       <MyPostContainer />
   </div>
   )
 }
-export default Content
+export default Profile

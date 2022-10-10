@@ -1,54 +1,68 @@
 const FOLLOW = 'FOLLOW';
 const UNFFOLOW = 'UNFFOLOW';
 const SET_USERS = 'SET_USERS';
+const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
+const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT';
+const TOGGLE_IS_FECHING = 'TOGGLE_IS_FECHING';
 
 let initialState = {
-  users: [
-    /* {id: 1, photoUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKSqze_aA54povlzYiL_6SyPkvMicwJ_ilzA&usqp=CAU', followed: false, fullName: 'Ihor', status: 'I am a boss', location: {city: 'Lviv', country: 'Ukraine'} }, 
-    {id: 2, photoUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKSqze_aA54povlzYiL_6SyPkvMicwJ_ilzA&usqp=CAU', followed: true, fullName: 'Vasia', status: 'I am a boss too', location: {city: 'London', country: 'Ukraine'} }, 
-    {id: 3, photoUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKSqze_aA54povlzYiL_6SyPkvMicwJ_ilzA&usqp=CAU', followed: false, fullName: 'Roman', status: 'I am not a boss', location: {city: 'Lviv', country: 'USA'} }, 
-    {id: 4, photoUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKSqze_aA54povlzYiL_6SyPkvMicwJ_ilzA&usqp=CAU', followed: false, fullName: 'Name', status: 'I am  not a boss', location: {city: 'Lviv', country: 'Ukraine'} }, 
-    {id: 5, photoUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKSqze_aA54povlzYiL_6SyPkvMicwJ_ilzA&usqp=CAU', followed: false, fullName: 'Name', status: 'I am not a boss', location: {city: 'Lviv', country: 'Ukraine'} }, 
-    {id: 6, photoUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKSqze_aA54povlzYiL_6SyPkvMicwJ_ilzA&usqp=CAU', followed: false, fullName: 'Name', status: 'I am not a boss', location: {city: 'Lviv', country: 'Ukraine'} },  */
-
-  ],
-
+  users: [],
+  pageSize: 5,
+  totalUserCount: 0,
+  curruntPage: 1,
+  isFeching: false,
 }
 
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
     case FOLLOW:
 
-    return {
-      ...state, 
-      users: state.users.map( u => {
-        if(u.id === action.userId) {
-          return {...u, followed: true};
-        }
-        return u;} )
-    }
+      return {
+        ...state,
+        users: state.users.map(u => {
+          if (u.id === action.userId) {
+            return { ...u, followed: true };
+          }
+          return u;
+        })
+      }
 
     case UNFFOLOW:
 
       return {
-        ...state, 
-        users: state.users.map( u => {
-          if(u.id === action.userId) {
-            return {...u, followed: false};
+        ...state,
+        users: state.users.map(u => {
+          if (u.id === action.userId) {
+            return { ...u, followed: false };
           }
-          return u;} )
-      }
-      
+          return u;
+        })
+      };
+
     case SET_USERS:
-      return {...state, users: [...state.users, ...action.users]}
+      return { ...state, users: action.users };
+
+    case SET_CURRENT_PAGE:
+      return { ...state, curruntPage: action.currentsPage };
+
+    case SET_TOTAL_USERS_COUNT:
+      return { ...state, totalUserCount: action.count };
+
+      case TOGGLE_IS_FECHING:
+        return { ...state, isFeching: action.isFeching };
 
     default:
-          return state;
+      return state;
   }
 
 }
 
-export const followedAC = (userId) => ({type: FOLLOW, userId});
-export const unfollowAC = (userId) => ({type: UNFFOLOW, userId});
-export const setUserAC = (users) => ({type: SET_USERS, users})
+export const followed = (userId) => ({ type: FOLLOW, userId });
+export const unfollow = (userId) => ({ type: UNFFOLOW, userId });
+export const setUser = (users) => ({ type: SET_USERS, users });
+export const setCurrentPage = (currentsPage) => ({ type: SET_CURRENT_PAGE, currentsPage });
+export const setUserTotalCount = (totalUserCount) => ({ type: SET_TOTAL_USERS_COUNT, count: totalUserCount });
+
+export const toggleIsFerhing = (isFeching) => ({ type: TOGGLE_IS_FECHING, isFeching: isFeching.isFeching});
+
 export default userReducer;

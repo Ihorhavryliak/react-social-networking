@@ -7,8 +7,8 @@ import Music from './components/Music/Music';
 import Setting from './components/Setting/Setting';
 import DialogsContainer from './components/Dialogs/DialogsContainer';
 import SidebarContainer from './components/Slidebar/SidebarContainer';
-import Users from './components/Users/Users';
 import UsersContainer from './components/Users/UsersContainer';
+import ProfileContainer from './components/Profile/ProfileContainer';
 
 
 const App = (props) => {
@@ -19,7 +19,7 @@ const App = (props) => {
         <SidebarContainer  />
         <div className='app-wraper-content'>
           <Routes>
-            <Route exact path='/profil' element={<Profile/>}/>
+            <Route exact path='/profil/*' element={<ProfileContainer />}/>
             <Route exact path="/dialogs/*" element={<DialogsContainer/>}/>
             <Route exact path='/news' element={<News />} />
             <Route exact path='/music' element={<Music />} />

@@ -4,7 +4,7 @@ import React from 'react';
 
 
 const  Mypost = (props) => {
-debugger
+
   let dialogElements = props.postDate.map(phra => (<Post messege={phra.name} key={phra.id} count={phra.count}/>))
   
   let newPostElement = React.createRef();
