@@ -1,4 +1,5 @@
-import { configureStore } from '@reduxjs/toolkit'
+import { applyMiddleware, configureStore } from '@reduxjs/toolkit'
+import authReducer from './auth-reducer';
 import dialogsReducer from './dialogs-reducer'
 import profileReducer from './profile_reducer'
 import slideBarReducer from './sidebar_block_reducer'
@@ -12,9 +13,10 @@ let store = configureStore({
       profilePage: profileReducer,
       dialogsPage: dialogsReducer,
       sidebarBlockFrends: slideBarReducer,
-      userPage: userReducer
+      userPage: userReducer,
+      auth: authReducer
     }
-});
+}, applyMiddleware());
 
 
 window.you = store;

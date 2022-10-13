@@ -1,9 +1,12 @@
+import { usersAPI } from "../api/api";
+
 const FOLLOW = 'FOLLOW';
 const UNFFOLOW = 'UNFFOLOW';
 const SET_USERS = 'SET_USERS';
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
 const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT';
 const TOGGLE_IS_FECHING = 'TOGGLE_IS_FECHING';
+const TOGGLE_IS_FOLLOWING_PROGRES = 'TOGGLE_IS_FOLLOWING_PROGRES';
 
 let initialState = {
   users: [],
@@ -11,6 +14,7 @@ let initialState = {
   totalUserCount: 0,
   curruntPage: 1,
   isFeching: false,
+  followingInProgres: [],
 }
 
 const userReducer = (state = initialState, action) => {
@@ -51,6 +55,12 @@ const userReducer = (state = initialState, action) => {
       case TOGGLE_IS_FECHING:
         return { ...state, isFeching: action.isFeching };
 
+        case TOGGLE_IS_FOLLOWING_PROGRES:
+          return { ...state, 
+            followingInProgres: action.isFeching 
+            ?[...state.followingInProgres, action.userId]
+            :[...state.followingInProgres.filter(id => id !== action.userId)] }
+
     default:
       return state;
   }
@@ -62,7 +72,20 @@ export const unfollow = (userId) => ({ type: UNFFOLOW, userId });
 export const setUser = (users) => ({ type: SET_USERS, users });
 export const setCurrentPage = (currentsPage) => ({ type: SET_CURRENT_PAGE, currentsPage });
 export const setUserTotalCount = (totalUserCount) => ({ type: SET_TOTAL_USERS_COUNT, count: totalUserCount });
-
 export const toggleIsFerhing = (isFeching) => ({ type: TOGGLE_IS_FECHING, isFeching: isFeching.isFeching});
+export const toggFollowingProgres = (isFeching, userId) => ({ type: TOGGLE_IS_FOLLOWING_PROGRES, isFeching: isFeching, userId});
 
+export const getUserThunkCreator = (curruntPage, pageSize) => {
+
+return (dispatch) => {
+
+ dispatch(toggleIsFerhing({ isFeching: true })) 
+
+  usersAPI.getUser(curruntPage, pageSize).then(data => {
+    dispatch(toggleIsFerhing({ isFeching: false }));
+    dispatch(setUser(data.items)) ;
+    dispatch(setUserTotalCount(data.totalCount)) ;
+   });;
+}
+}
 export default userReducer;

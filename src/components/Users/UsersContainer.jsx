@@ -1,29 +1,31 @@
 import React from 'react';
 import { connect } from "react-redux";
-import { followed, setCurrentPage, setUser, setUserTotalCount, toggleIsFerhing, unfollow } from "../../redux/usere_reducer";
+import { followed, getUserThunkCreator, setCurrentPage, setUser, setUserTotalCount, toggFollowingProgres, toggleIsFerhing, unfollow } from "../../redux/usere_reducer";
 import Users from './Users';
-import axios from 'axios';
 import Preloader from '../Common/Preloader/Preloader';
+import { usersAPI } from '../../api/api';
+
 
 class UsersContainer extends React.Component {
 
 
   componentDidMount() {
-    this.props.toggleIsFerhing({ isFeching: true })
-    axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.curruntPage}&count=${this.props.pageSize}`)
-      .then(response => {
-        this.props.toggleIsFerhing({ isFeching: false })
-        this.props.setUser(response.data.items);
-        this.props.setUserTotalCount(response.data.totalCount);
-      });
+    this.props.getUserThunkCreator();
+ /*    this.props.toggleIsFerhing({ isFeching: true })
+   usersAPI.getUser(this.props.curruntPage, this.props.pageSize).then(data => {
+      this.props.toggleIsFerhing({ isFeching: false })
+      this.props.setUser(data.items);
+      this.props.setUserTotalCount(data.totalCount);
+    });; */
   }
 
   onPageChange = (pageNumber) => {
     this.props.setCurrentPage(pageNumber);
     this.props.toggleIsFerhing({ isFeching: true })
-    axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`).then(response => {
+    usersAPI.getUser(pageNumber, this.props.pageSize)
+    .then(data => {
       this.props.toggleIsFerhing({ isFeching: false })
-      this.props.setUser(response.data.items);
+      this.props.setUser(data.items);
     });
   }
 
@@ -40,6 +42,8 @@ class UsersContainer extends React.Component {
           users={this.props.users}
           unfollow={this.props.unfollow}
           followed={this.props.followed}
+          toggFollowingProgres={this.props.toggFollowingProgres}
+          followingInProgres={this.props.followingInProgres}
         />
       </>
     )
@@ -52,7 +56,9 @@ const mapStateToProps = (state) => {
     pageSize: state.userPage.pageSize,
     totalUserCount: state.userPage.totalUserCount,
     curruntPage: state.userPage.curruntPage,
-    isFeching: state.userPage.isFeching
+    isFeching: state.userPage.isFeching,
+    followingInProgres: state.userPage.followingInProgres
+    
   }
 }
 
@@ -81,4 +87,8 @@ const mapDispatchToProps = (dispatch) => {
 }
  */
 
-export default connect(mapStateToProps, {followed, unfollow,setUser,setCurrentPage,setUserTotalCount,toggleIsFerhing,})(UsersContainer);
+
+
+export default connect(mapStateToProps, {followed, unfollow,setUser,
+  setCurrentPage,setUserTotalCount,
+  toggleIsFerhing, toggFollowingProgres, getUserThunkCreator})(UsersContainer);
