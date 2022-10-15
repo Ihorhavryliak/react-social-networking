@@ -3,6 +3,7 @@ import s from './ProfileInfo.module.css';
 import ProfileStatus from './ProfileStatus'
 
 const ProfileInfo = (props) => {
+
   if (!props.profile) {
     return <Preloader />
   }
@@ -14,7 +15,7 @@ const ProfileInfo = (props) => {
       </div> */}
       <div className={s.descri_pbloxk}>
         <img alt='photos' src={props.profile.photos.large} />
-        <ProfileStatus status={'Hello 435'} />
+        <ProfileStatus status={props.status} upDateStatuses={props.upDateStatuses} />
         <div>
           <span>{props.profile.contacts.facebook} </span>
           <span>{props.profile.contacts.website} </span>
