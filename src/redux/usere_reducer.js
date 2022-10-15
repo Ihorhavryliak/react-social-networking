@@ -67,20 +67,17 @@ const userReducer = (state = initialState, action) => {
 
 }
 
-export const followed = (userId) => ({ type: FOLLOW, userId });
-export const unfollow = (userId) => ({ type: UNFFOLOW, userId });
+export const followedSuccess = (userId) => ({ type: FOLLOW, userId });
+export const unfollowSuccess = (userId) => ({ type: UNFFOLOW, userId });
 export const setUser = (users) => ({ type: SET_USERS, users });
 export const setCurrentPage = (currentsPage) => ({ type: SET_CURRENT_PAGE, currentsPage });
 export const setUserTotalCount = (totalUserCount) => ({ type: SET_TOTAL_USERS_COUNT, count: totalUserCount });
 export const toggleIsFerhing = (isFeching) => ({ type: TOGGLE_IS_FECHING, isFeching: isFeching.isFeching});
 export const toggFollowingProgres = (isFeching, userId) => ({ type: TOGGLE_IS_FOLLOWING_PROGRES, isFeching: isFeching, userId});
 
-export const getUserThunkCreator = (curruntPage, pageSize) => {
-
+export const getUser = (curruntPage, pageSize) => {
 return (dispatch) => {
-
  dispatch(toggleIsFerhing({ isFeching: true })) 
-
   usersAPI.getUser(curruntPage, pageSize).then(data => {
     dispatch(toggleIsFerhing({ isFeching: false }));
     dispatch(setUser(data.items)) ;
@@ -88,4 +85,35 @@ return (dispatch) => {
    });;
 }
 }
+
+export const follow = (userId) => {
+
+  return (dispatch) => {
+    dispatch(toggFollowingProgres(true, userId));
+
+    usersAPI.follow(userId)
+      .then(response => {
+        if (response.data.resultCode === 0) {
+         dispatch(followedSuccess(userId));
+        }
+       dispatch(toggFollowingProgres(false, userId));
+      });
+      
+  }
+}
+
+export const unfollow = (userId) => {
+  return (dispatch) => {
+    dispatch(toggFollowingProgres(true, userId));
+    usersAPI.unfollow(userId)
+      .then(response => {
+        if (response.data.resultCode === 0) {
+         dispatch(unfollowSuccess(userId));
+        }
+       dispatch(toggFollowingProgres(false, userId));
+      });
+  }
+}
+
+
 export default userReducer;

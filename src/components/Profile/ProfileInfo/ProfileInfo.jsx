@@ -1,5 +1,6 @@
 import Preloader from '../../Common/Preloader/Preloader';
 import s from './ProfileInfo.module.css';
+import ProfileStatus from './ProfileStatus'
 
 const ProfileInfo = (props) => {
   if (!props.profile) {
@@ -8,11 +9,12 @@ const ProfileInfo = (props) => {
  
   return (
     <div >
-      <div>
+    {/*   <div>
         <img className={s.image} alt="hooo" src="https://img.freepik.com/free-photo/wide-angle-shot-of-a-single-tree-growing-under-a-clouded-sky-during-a-sunset-surrounded-by-grass_181624-22807.jpg?w=2000"></img>
-      </div>
+      </div> */}
       <div className={s.descri_pbloxk}>
         <img alt='photos' src={props.profile.photos.large} />
+        <ProfileStatus status={'Hello 435'} />
         <div>
           <span>{props.profile.contacts.facebook} </span>
           <span>{props.profile.contacts.website} </span>

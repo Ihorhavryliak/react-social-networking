@@ -2,6 +2,7 @@ import se from './Dialogs.module.css';
 import DialogItem from './DialogItem/DialogItem';
 import Messege from './Messege/Messege';
 import React from 'react';
+import { Navigate  } from 'react-router-dom';
 
 const Dialog = (props) => {
 
@@ -17,6 +18,9 @@ const Dialog = (props) => {
     let newText = e.target.value;
     props.updateMesege(newText);
   }
+
+/*   if (!props.isAuth) {    return <Navigate to={'/login'} /> }  */
+
   return (
         <div className={se.dialogs}>
           <div className={se.dialogs_items}>

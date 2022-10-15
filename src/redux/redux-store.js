@@ -4,7 +4,7 @@ import dialogsReducer from './dialogs-reducer'
 import profileReducer from './profile_reducer'
 import slideBarReducer from './sidebar_block_reducer'
 import userReducer from './usere_reducer';
-
+import thunkMiddleware from 'redux-thunk'
 
 
 
@@ -16,7 +16,7 @@ let store = configureStore({
       userPage: userReducer,
       auth: authReducer
     }
-}, applyMiddleware());
+}, applyMiddleware(thunkMiddleware));
 
 
 window.you = store;
