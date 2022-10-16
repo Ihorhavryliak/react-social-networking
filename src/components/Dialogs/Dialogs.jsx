@@ -2,7 +2,7 @@ import se from './Dialogs.module.css';
 import DialogItem from './DialogItem/DialogItem';
 import Messege from './Messege/Messege';
 import React from 'react';
-import { Navigate  } from 'react-router-dom';
+import { AddMessegeFormRedux } from './AddMessegeForm/AddMessegeForm';
 
 const Dialog = (props) => {
 
@@ -10,16 +10,10 @@ const Dialog = (props) => {
   let dialogList = state.diaDate.map(names => (<DialogItem key={names.id}  src={names.src} name={names.name} id={names.id}/>));
   let phraList = state.mesegeDate.map(phar => (<Messege key={phar.id}  messege={phar.name} />) );
   
-
-  let sendTextMessege = () => {
-    props.adMessege()
-  }
-  let textMessege = (e) => {
-    let newText = e.target.value;
-    props.updateMesege(newText);
+  const handleSubmit = (values) => {
+    props.adMessege(values.newMessegeBoddy)
   }
 
-/*   if (!props.isAuth) {    return <Navigate to={'/login'} /> }  */
 
   return (
         <div className={se.dialogs}>
@@ -29,17 +23,11 @@ const Dialog = (props) => {
           <div className={se.messeges}>
             {phraList}
           </div>
-          <div>
-            <div>
-             <textarea placeholder='Enter your messege'
-             onChange={textMessege} value={state.textMessege} ></textarea>
-            </div>
-            <div>
-            <button onClick={sendTextMessege}>Send</button>
-            </div>
-          </div>
+          <AddMessegeFormRedux onSubmit={handleSubmit} />
         </div>
   )
 }
+
+
 
 export default Dialog;

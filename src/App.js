@@ -1,5 +1,5 @@
 import './App.css';
-import {Route, Routes} from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import News from './components/News/News';
 import Music from './components/Music/Music';
 import Setting from './components/Setting/Setting';
@@ -9,20 +9,36 @@ import UsersContainer from './components/Users/UsersContainer';
 import ProfileContainer from './components/Profile/ProfileContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
 import Login from './components/Login/Login';
+import React from 'react';
+import { connect } from 'react-redux';
+import withRouter from './hoc/withProfileUrl';
+import { compose } from 'redux';
+import { initilizeAPP } from './redux/app-reducer';
+import Preloader from './components/Common/Preloader/Preloader';
 
 
-const App = (props) => {
+class App extends React.Component {
 
-  return (
+  componentDidMount() {
+    this.props.initilizeAPP()
+  }
+
+  render() {
+    
+    if (!this.props.initial) {
+      return <Preloader />
+    }
+
+    return (
       <div className="app-wraper">
         <HeaderContainer />
-        <SidebarContainer  />
+        <SidebarContainer />
         <div className='app-wraper-content'>
           <Routes>
             <Route exact path='/profil/*' element={<ProfileContainer />}>
-              <Route path=':userId' element={<ProfileContainer/>} />
+              <Route path=':userId' element={<ProfileContainer />} />
             </Route>
-            <Route exact path="/dialogs/*" element={<DialogsContainer/>}/>
+            <Route exact path="/dialogs/*" element={<DialogsContainer />} />
             <Route exact path='/news' element={<News />} />
             <Route exact path='/music' element={<Music />} />
             <Route exact path='/setting' element={<Setting />} />
@@ -31,10 +47,16 @@ const App = (props) => {
           </Routes>
         </div>
       </div>
+    )
+  }
 
-  );
+
 }
 
+const mapStateToProps = (state) => ({
+  initial: state.app.initial,
+})
 
-
-export default App;
+export default compose(
+  withRouter,
+  connect(mapStateToProps, { initilizeAPP  }))(App);
