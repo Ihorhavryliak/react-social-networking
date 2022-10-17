@@ -24,7 +24,7 @@ class ProfileStatus extends React.Component {
   onStatusChange = (e) => {
       this.setState({
       status: e.currentTarget.value
-    })
+    });
   }
 
   componentDidUpdate (prevProps, prevState) {
@@ -38,7 +38,7 @@ class ProfileStatus extends React.Component {
   }
 
   render() {
-    console.log('render')
+
     return (
       <div>
         {!this.state.editMode && 

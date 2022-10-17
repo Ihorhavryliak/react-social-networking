@@ -1,4 +1,4 @@
-import {adPostActionCreat} from './../../../redux/profile_reducer'
+import {adPostActionCreat} from '../../../redux/profile_reducer'
 import Mypost from './Mypost';
 import {connect} from 'react-redux'
 

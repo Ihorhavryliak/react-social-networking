@@ -7,11 +7,14 @@ import { Textarea } from '../../Common/Preloader/FormControl/FormsControl';
 
 const maxLenght10 = maxLengthCreator(10);
 
-const Mypost = (props) => {
+const Mypost = React.memo(props => {
+
+    console.log("RENDER ")
   let dialogElements = props.postDate.map(phra => (<Post messege={phra.name} key={phra.id} count={phra.count} />))
   const onAddPost = (values) => {
     props.adPost(values.newPostText);
   }
+
   return (
     <div className={se.postBlock}>
       <h3 className={se.myPost}>
@@ -25,7 +28,8 @@ const Mypost = (props) => {
       </div>
     </div>
   )
-}
+ 
+});
 
 const AddNewPostForm = (props) => {
   return (

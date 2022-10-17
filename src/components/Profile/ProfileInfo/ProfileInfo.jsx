@@ -1,18 +1,19 @@
 import Preloader from '../../Common/Preloader/Preloader';
 import s from './ProfileInfo.module.css';
 import ProfileStatus from './ProfileStatus'
+import ProfileStatusWithHooks from './ProfileStatusWithHooks';
 
 const ProfileInfo = (props) => {
 
   if (!props.profile) {
     return <Preloader />
   }
- 
+
   return (
     <div >
       <div className={s.descri_pbloxk}>
         <img alt='photos' src={props.profile.photos.large} />
-        <ProfileStatus status={props.status} upDateStatuses={props.upDateStatuses} />
+        <ProfileStatusWithHooks status={props.status} upDateStatuses={props.upDateStatuses} />
         <div>
           <span>{props.profile.contacts.facebook} </span>
           <span>{props.profile.contacts.website} </span>

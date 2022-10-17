@@ -1,18 +1,19 @@
 import React from 'react';
 import { connect } from "react-redux";
-import { follow, getUser, setCurrentPage, toggFollowingProgres, unfollow } from "../../redux/usere_reducer";
+import { follow, reqestUser, setCurrentPage, toggFollowingProgres, unfollow } from "../../redux/usere_reducer";
 import Users from './Users';
 import Preloader from '../Common/Preloader/Preloader';
 import { compose } from 'redux';
+import { getCurruntPage, getFollowingInProgres, getPageSize, getUsers, getSsFeching, getTotalUserCount, getUsersSelectorSuper } from '../../redux/user-selectors';
 
 
 
 class UsersContainer extends React.Component {
   componentDidMount() {
-    this.props.getUser(this.props.curruntPage, this.props.pageSize);
+    this.props.reqestUser(this.props.curruntPage, this.props.pageSize);
   }
   onPageChange = (pageNumber) => {
-    this.props.getUser(pageNumber, this.props.pageSize);
+    this.props.reqestUser(pageNumber, this.props.pageSize);
   }
 
   render() {
@@ -36,7 +37,7 @@ class UsersContainer extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
+/* const mapStateToProps = (state) => {
   return {
     users: state.userPage.users,
     pageSize: state.userPage.pageSize,
@@ -44,6 +45,17 @@ const mapStateToProps = (state) => {
     curruntPage: state.userPage.curruntPage,
     isFeching: state.userPage.isFeching,
     followingInProgres: state.userPage.followingInProgres
+  }
+} */
+
+const mapStateToProps = (state) => {
+  return {
+    users: getUsersSelectorSuper(state),
+    pageSize: getPageSize(state),
+    totalUserCount: getTotalUserCount(state),
+    curruntPage: getCurruntPage(state),
+    isFeching: getSsFeching(state),
+    followingInProgres: getFollowingInProgres(state)
   }
 }
 
@@ -76,6 +88,6 @@ const mapDispatchToProps = (dispatch) => {
 
 
 export default compose(
-  connect(mapStateToProps,{ follow, unfollow, setCurrentPage, toggFollowingProgres, getUser }),
+  connect(mapStateToProps,{ follow, unfollow, setCurrentPage, toggFollowingProgres, reqestUser }),
  //withAuthRedirect,
 )(UsersContainer);

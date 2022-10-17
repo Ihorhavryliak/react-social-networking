@@ -2,6 +2,7 @@ import { profileAPI, usersAPI } from "../api/api";
 const ADD_POST = 'ADD-POST';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
 const SET_STATUS = 'SET_STATUS';
+const DELETE_POST = 'DELETE_POST';
 
 let initialState = {
   postDate: [
@@ -41,6 +42,8 @@ const profileReducer = (state = initialState, action) => {
 export const adPostActionCreat = (newPostText) => ({ type: ADD_POST , newPostText});
 export const setUserProfile = (profile) => ({ type: SET_USER_PROFILE, profile});
 export const setStatus = (status) => ({ type: SET_STATUS, status});
+export const deletePost = (postId) => ({ type: DELETE_POST, postId});
+
 
 export const getUserProfile = (userId) => (dispatch) => {
   return (
@@ -67,7 +70,6 @@ export const upDateStatuses = (status) => (dispatch) => {
         if (response.data.resulCode === 0 ) {
           dispatch(setStatus(response.data));
         }
-         
       })
   )
 }

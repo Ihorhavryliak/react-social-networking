@@ -12,7 +12,6 @@ class ProfileContainer extends React.Component {
  
     let userId = this.props.router.params.userId;
 
-
     if (!userId ) {
       userId = this.props.authoraizerUserId;
       
@@ -22,16 +21,10 @@ class ProfileContainer extends React.Component {
     }
 
     this.props.getUserProfile(userId);
-   /*  setTimeout ( () => { */
-      this.props.getStatus(userId);
-  /*   }, 1000 ) */
- 
-
+    this.props.getStatus(userId);
   };
 
   render() {
-
-
     return (
       <div >
         <Profile {...this.props} profile={this.props.profile} status={this.props.status}  
@@ -42,12 +35,16 @@ class ProfileContainer extends React.Component {
 }
 
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state) => {
+
+  return ( {
   profile: state.profilePage.profile,
   status: state.profilePage.status,
   authoraizerUserId: state.auth.userId,
   isAuth: state.auth.isAuth
 })
+
+}
 
 
 export default compose(
