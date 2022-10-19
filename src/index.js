@@ -10,7 +10,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 
   root.render(
     <Provider  store={store} >
-      <HashRouter /* basename={process.env.PUBLIC_URL} */>
+      <HashRouter /* basename={process.env.PUBLIC_URL} dsfsdf */ >
 
               <App />
       

@@ -1,46 +1,56 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getStatus, getUserProfile, upDateStatuses } from '../../redux/profile_reducer';
+import { getStatus, getUserProfile, savePhoto, upDateStatuses } from '../../redux/profile_reducer';
 import Profile from './Profile';
 import withRouter from '../../hoc/withProfileUrl';
 import { compose } from 'redux';
 import { Navigate, useHistory } from "react-router-dom";
+import Preloader from '../Common/Preloader/Preloader';
 
 class ProfileContainer extends React.Component {
 
-  componentDidMount() {
-    
+  refreshProfile() {
     let userId = this.props.router.params.userId;
-
-    if (!userId ) {
+    if (!userId) {
       userId = this.props.authoraizerUserId;
-    
-    /*   if (!userId) {
-        return <Navigate to='/login' />
-
-      } */
-    } 
-
+      /*   if (!userId) {
+          return <Navigate to='/login' />
+        } */
+    }
     this.props.getUserProfile(userId);
     this.props.getStatus(userId);
+  }
+
+  componentDidMount() {
+    this.refreshProfile()
   };
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.props.router.params.userId !== prevProps.router.params.userId) {
+      this.refreshProfile()
+    }
+
+  }
 
 
   render() {
-    let userId = this.props.router.params.userId;
 
-    if (!userId ) {
+    let userId = this.props.router.params.userId;
+    if (!userId) {
       userId = this.props.authoraizerUserId;
-    
       if (!userId) {
         return <Navigate to='/login' />
       }
-    } 
+    }
 
     return (
       <div >
-        <Profile {...this.props} profile={this.props.profile} status={this.props.status}  
-        upDateStatuses={this.props.upDateStatuses}/>
+        <Profile {...this.props} profile={this.props.profile} status={this.props.status}
+          isOwner={!this.props.router.params.userId}
+          upDateStatuses={this.props.upDateStatuses}
+          savePhoto={this.props.savePhoto}
+        />
+
       </div>
     )
   }
@@ -48,16 +58,16 @@ class ProfileContainer extends React.Component {
 
 
 const mapStateToProps = (state) => {
-  return ( {
-  profile: state.profilePage.profile,
-  status: state.profilePage.status,
-  authoraizerUserId: state.auth.userId,
-  isAuth: state.auth.isAuth
-})
+  return ({
+    profile: state.profilePage.profile,
+    status: state.profilePage.status,
+    authoraizerUserId: state.auth.userId,
+    isAuth: state.auth.isAuth
+  })
 }
 
 
 export default compose(
-  connect(mapStateToProps, {  getUserProfile, getStatus, upDateStatuses}),
+  connect(mapStateToProps, { getUserProfile, getStatus, upDateStatuses, savePhoto }),
   withRouter
  /*  withAuthRedirect */)(ProfileContainer);

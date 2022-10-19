@@ -1,17 +1,25 @@
 import Preloader from '../../Common/Preloader/Preloader';
 import s from './ProfileInfo.module.css';
 import ProfileStatusWithHooks from './ProfileStatusWithHooks';
+import userPhoto from '../../../assets/images/image-user.png'
 
-const ProfileInfo = ({profile, status,  upDateStatuses}) => {
+const ProfileInfo = ({profile, status,  upDateStatuses, isOwner, savePhoto}) => {
 
   if (!profile) {
     return <Preloader />
   }
 
+  const mainPhotoSelect = (e) => {
+    if (e.target.files.length) {
+      savePhoto (e.target.files[0])
+    }
+  }
+
   return (
     <div >
       <div className={s.descri_pbloxk}>
-        <img alt='photos' src={profile.photos.large} />
+        <img alt='photos' src={profile.photos.large || userPhoto} className={s.mainPhoto}/>
+        {isOwner && <input type={'file'} onChange={mainPhotoSelect} />}
         <ProfileStatusWithHooks status={status} upDateStatuses={upDateStatuses} />
         <div>
           <span>{profile.contacts.facebook} </span>
