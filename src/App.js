@@ -35,7 +35,7 @@ class App extends React.Component {
         <SidebarContainer />
         <div className='app-wraper-content'>
           <Routes>
-            <Route exact path='/profil/*' element={<ProfileContainer />}>
+            <Route  path='/profil/' element={<ProfileContainer />}>
               <Route path=':userId' element={<ProfileContainer />} />
             </Route>
             <Route exact path="/dialogs/*" element={<DialogsContainer />} />

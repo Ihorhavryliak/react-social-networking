@@ -4,20 +4,21 @@ import { follow, reqestUser, setCurrentPage, toggFollowingProgres, unfollow } fr
 import Users from './Users';
 import Preloader from '../Common/Preloader/Preloader';
 import { compose } from 'redux';
-import { getCurruntPage, getFollowingInProgres, getPageSize, getUsers, getSsFeching, getTotalUserCount, getUsersSelectorSuper } from '../../redux/user-selectors';
+import { getCurruntPage, getFollowingInProgres, getPageSize, getSsFeching, getTotalUserCount, getUsersSelectorSuper } from '../../redux/user-selectors';
 
 
 
 class UsersContainer extends React.Component {
   componentDidMount() {
-    this.props.reqestUser(this.props.curruntPage, this.props.pageSize);
+    const {curruntPage, pageSize} = this.props;
+    this.props.reqestUser(curruntPage, pageSize);
   }
   onPageChange = (pageNumber) => {
-    this.props.reqestUser(pageNumber, this.props.pageSize);
+    const {pageSize} = this.props;
+    this.props.reqestUser(pageNumber, pageSize);
   }
 
   render() {
-
     return (
       <>
         {this.props.isFeching
@@ -36,17 +37,6 @@ class UsersContainer extends React.Component {
     )
   }
 }
-
-/* const mapStateToProps = (state) => {
-  return {
-    users: state.userPage.users,
-    pageSize: state.userPage.pageSize,
-    totalUserCount: state.userPage.totalUserCount,
-    curruntPage: state.userPage.curruntPage,
-    isFeching: state.userPage.isFeching,
-    followingInProgres: state.userPage.followingInProgres
-  }
-} */
 
 const mapStateToProps = (state) => {
   return {

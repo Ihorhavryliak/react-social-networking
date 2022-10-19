@@ -85,3 +85,5 @@
 по цьому не можна робити Ajax запит. Потрібно componentam, reducer, selectoram.
 4. Determained (Idempotentnos) - на вхід скільки через мене не пускай дані я поверну
  тобі одину і ту саму відповідь. (get - Idempotentnos, post - no Idempotentnos)
+61. React.Suspense -
+62. React.lazy

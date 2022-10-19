@@ -1,42 +1,41 @@
 import Preloader from '../../Common/Preloader/Preloader';
 import s from './ProfileInfo.module.css';
-import ProfileStatus from './ProfileStatus'
 import ProfileStatusWithHooks from './ProfileStatusWithHooks';
 
-const ProfileInfo = (props) => {
+const ProfileInfo = ({profile, status,  upDateStatuses}) => {
 
-  if (!props.profile) {
+  if (!profile) {
     return <Preloader />
   }
 
   return (
     <div >
       <div className={s.descri_pbloxk}>
-        <img alt='photos' src={props.profile.photos.large} />
-        <ProfileStatusWithHooks status={props.status} upDateStatuses={props.upDateStatuses} />
+        <img alt='photos' src={profile.photos.large} />
+        <ProfileStatusWithHooks status={status} upDateStatuses={upDateStatuses} />
         <div>
-          <span>{props.profile.contacts.facebook} </span>
-          <span>{props.profile.contacts.website} </span>
-          <span>{props.profile.contacts.vk} </span>
-          <span>{props.profile.contacts.twitter} </span>
-          <span>{props.profile.contacts.instagram} </span>
-          <span>{props.profile.contacts.youtube} </span>
-          <span>{props.profile.contacts.github} </span>
-          <span>{props.profile.contacts.youtube} </span>
-          <span>{props.profile.contacts.mainLink} </span>
+          <span>{profile.contacts.facebook} </span>
+          <span>{profile.contacts.website} </span>
+          <span>{profile.contacts.vk} </span>
+          <span>{profile.contacts.twitter} </span>
+          <span>{profile.contacts.instagram} </span>
+          <span>{profile.contacts.youtube} </span>
+          <span>{profile.contacts.github} </span>
+          <span>{profile.contacts.youtube} </span>
+          <span>{profile.contacts.mainLink} </span>
         </div>
         <div>
-          {props.profile.lookingForAJob === true ? 'Looking a job' : 'No looking a job'}
+          {profile.lookingForAJob === true ? 'Looking a job' : 'No looking a job'}
           <p>
-            {(props.profile.lookingForAJob === true && props.profile.lookingForAJobDescription.length > 0) 
-            ? props.profile.lookingForAJobDescription
+            {(profile.lookingForAJob === true && profile.lookingForAJobDescription.length > 0) 
+            ? profile.lookingForAJobDescription
             : null }
           </p>
           <p>
-          {props.profile.fullName}
+          {profile.fullName}
           </p>
           <p>
-          {props.profile.aboutMe}
+          {profile.aboutMe}
           </p>
         </div>
       </div>

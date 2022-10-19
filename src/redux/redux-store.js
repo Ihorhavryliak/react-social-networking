@@ -9,6 +9,7 @@ import {reducer as formReducer} from 'redux-form'
 import appReudcer from './app-reducer';
 
 
+
 let store = configureStore({
     reducer: {
       profilePage: profileReducer,
@@ -20,7 +21,6 @@ let store = configureStore({
       app: appReudcer
     }
 }, applyMiddleware(thunkMiddleware));
-
 
 window.you = store;
 

@@ -42,7 +42,7 @@ export const profileAPI = {
     return   instance.get(`/profile/status/` + userId)
   },
   upDateStatus (status) {
-    return instance.put(`/profile/status`, {status})
+    return instance.put(`/profile/status`, {status: status})
   }
 }
 

@@ -9,8 +9,9 @@ const maxLenght10 = maxLengthCreator(10);
 
 const Mypost = React.memo(props => {
 
-    console.log("RENDER ")
-  let dialogElements = props.postDate.map(phra => (<Post messege={phra.name} key={phra.id} count={phra.count} />))
+  let dialogElements = props.postDate.map(phra =>
+    (<Post messege={phra.name} key={phra.id} count={phra.count} />));
+    
   const onAddPost = (values) => {
     props.adPost(values.newPostText);
   }
@@ -21,22 +22,23 @@ const Mypost = React.memo(props => {
         my pos
       </h3>
       <div>
-        <GetFormDateDedux onSubmit={onAddPost}  />
+        <GetFormDateDedux onSubmit={onAddPost} />
       </div>
       <div className={se.post}>
         {dialogElements}
       </div>
     </div>
   )
- 
+
 });
 
+//forma
 const AddNewPostForm = (props) => {
   return (
     <form onSubmit={props.handleSubmit}>
       <div>
-        <Field component={Textarea} name={'newPostText'}  placeholder={'Enter your messege'}
-        validate={[reqiaret, maxLenght10]}
+        <Field component={Textarea} name={'newPostText'} placeholder={'Enter your messege'}
+          validate={[reqiaret, maxLenght10]}
         />
       </div>
       <div>
@@ -46,6 +48,6 @@ const AddNewPostForm = (props) => {
   )
 };
 
-const GetFormDateDedux = reduxForm ({form: 'profileAddNewPostForm'})(AddNewPostForm)
+const GetFormDateDedux = reduxForm({ form: 'profileAddNewPostForm' })(AddNewPostForm)
 
 export default Mypost;
