@@ -3,19 +3,20 @@ import { Route, Routes } from 'react-router-dom';
 import News from './components/News/News';
 import Music from './components/Music/Music';
 import Setting from './components/Setting/Setting';
-import DialogsContainer from './components/Dialogs/DialogsContainer';
 import SidebarContainer from './components/Slidebar/SidebarContainer';
 import UsersContainer from './components/Users/UsersContainer';
-import ProfileContainer from './components/Profile/ProfileContainer';
+/* import ProfileContainer from './components/Profile/ProfileContainer'; */
 import HeaderContainer from './components/Header/HeaderContainer';
 import Login from './components/Login/Login';
-import React from 'react';
+import React, { Suspense } from 'react';
 import { connect } from 'react-redux';
 import withRouter from './hoc/withProfileUrl';
 import { compose } from 'redux';
 import { initilizeAPP } from './redux/app-reducer';
 import Preloader from './components/Common/Preloader/Preloader';
-
+//import DialogsContainer from './components/Dialogs/DialogsContainer';
+const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'))
+const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'))
 
 class App extends React.Component {
 
@@ -34,6 +35,7 @@ class App extends React.Component {
         <HeaderContainer />
         <SidebarContainer />
         <div className='app-wraper-content'>
+        <Suspense fallback={<div><Preloader /></div>}>
           <Routes>
             <Route  path='/profil/' element={<ProfileContainer />}>
               <Route path=':userId' element={<ProfileContainer />} />
@@ -45,6 +47,7 @@ class App extends React.Component {
             <Route exact path='/users' element={<UsersContainer />} />
             <Route exact path='/login' element={<Login />} />
           </Routes>
+        </Suspense>
         </div>
       </div>
     )
