@@ -77,8 +77,14 @@ export const saveProfile = (proFile) => async (dispatch, getState) => {
 }
 
 export const getUserProfile = (userId) => async (dispatch) => {
-  let data = await usersAPI.getProfile(userId);
-  dispatch(setUserProfile(data));
+  try {
+    let data = await usersAPI.getProfile(userId);
+    dispatch(setUserProfile(data));
+  } catch (error) {
+    
+    alert('404 page is not defind')
+  }
+ 
 }
 
 export const getStatus = (userId) => async (dispatch) => {
@@ -88,10 +94,15 @@ export const getStatus = (userId) => async (dispatch) => {
 }
 
 export const upDateStatuses = (status) => async (dispatch) => {
+  try{
   let response = await profileAPI.upDateStatus(status)
   if (response.data.resultCode === 0) {
     dispatch(setStatus(status));
   }
+} catch (error) {
+ // alert()
+ /* alert('404 page is not defind') */
+}
 }
 
 export const savePhoto = (file) => async (dispatch) => {

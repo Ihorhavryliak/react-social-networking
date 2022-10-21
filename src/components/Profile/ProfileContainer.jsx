@@ -4,8 +4,8 @@ import { getStatus, getUserProfile, savePhoto, saveProfile, upDateStatuses } fro
 import Profile from './Profile';
 import withRouter from '../../hoc/withProfileUrl';
 import { compose } from 'redux';
-import { Navigate, useHistory } from "react-router-dom";
-import Preloader from '../Common/Preloader/Preloader';
+import { Navigate} from "react-router-dom";
+
 
 class ProfileContainer extends React.Component {
 

@@ -10,7 +10,7 @@ const Sidebar = (props) => {
 
   return (
     <nav className={s.nav}>
-      <div ><NavLink to="/profil" 
+      <div ><NavLink to="/profile" 
       className = { navData => navData.isActive ? s.active : s.item }>Profile</NavLink> </div>
       <div ><NavLink to="/dialogs" className = { navData => navData.isActive ? s.active : s.item }>Messege</NavLink> </div>
       <div ><NavLink to="/news" className = { navData => navData.isActive ? s.active : s.item }>News</NavLink> </div>
