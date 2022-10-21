@@ -7,3 +7,11 @@
 .mainPhoto{
  max-width:  150px;
 }
+.contact{
+ padding-left: 10px;
+}
+.formSUmmeryError { 
+  border: 1px solid red;
+  padding: 5px;
+  color: brown;
+}

@@ -52,6 +52,11 @@ export const profileAPI = {
         'Content-Type': 'multipart/form-data'
       }
     })
+  },
+  savesFrofile (profile) {
+    return (
+      instance.put('profile', profile)
+    );
   }
 }
 
@@ -75,7 +80,7 @@ export const authAPI = {
     return (
       instance.delete('auth/login')
     );
-  }
+  },
 }
 
 /*  */

@@ -2,52 +2,89 @@ import Preloader from '../../Common/Preloader/Preloader';
 import s from './ProfileInfo.module.css';
 import ProfileStatusWithHooks from './ProfileStatusWithHooks';
 import userPhoto from '../../../assets/images/image-user.png'
+import { useState } from 'react';
+import ProfileDataForm from './ProfileDataForm';
 
-const ProfileInfo = ({profile, status,  upDateStatuses, isOwner, savePhoto}) => {
 
+const ProfileInfo = ({ profile, status, upDateStatuses, isOwner, savePhoto , saveProfile}) => {
+  const [editMode, setEditMode]  = useState(false)
   if (!profile) {
     return <Preloader />
   }
-
+  
   const mainPhotoSelect = (e) => {
     if (e.target.files.length) {
-      savePhoto (e.target.files[0])
+      savePhoto(e.target.files[0])
     }
   }
+  
+  const getFormDta = async (values) => {
+  saveProfile(values).then(
+   () => { setEditMode(false)}
+  )
+ 
+   
+   }
+
+
 
   return (
     <div >
       <div className={s.descri_pbloxk}>
-        <img alt='photos' src={profile.photos.large || userPhoto} className={s.mainPhoto}/>
+        <img alt='photos' src={profile.photos.large || userPhoto} className={s.mainPhoto} />
+
         {isOwner && <input type={'file'} onChange={mainPhotoSelect} />}
+
         <ProfileStatusWithHooks status={status} upDateStatuses={upDateStatuses} />
-        <div>
-          <span>{profile.contacts.facebook} </span>
-          <span>{profile.contacts.website} </span>
-          <span>{profile.contacts.vk} </span>
-          <span>{profile.contacts.twitter} </span>
-          <span>{profile.contacts.instagram} </span>
-          <span>{profile.contacts.youtube} </span>
-          <span>{profile.contacts.github} </span>
-          <span>{profile.contacts.youtube} </span>
-          <span>{profile.contacts.mainLink} </span>
-        </div>
-        <div>
-          {profile.lookingForAJob === true ? 'Looking a job' : 'No looking a job'}
-          <p>
-            {(profile.lookingForAJob === true && profile.lookingForAJobDescription.length > 0) 
-            ? profile.lookingForAJobDescription
-            : null }
-          </p>
-          <p>
-          {profile.fullName}
-          </p>
-          <p>
-          {profile.aboutMe}
-          </p>
-        </div>
+
+        {editMode ? <ProfileDataForm initialValues={profile} onSubmit={getFormDta} profile={profile} /> 
+        :  <ProfileData goToEditMode={() => {setEditMode(true)}} profile={profile} isOwner={isOwner} />}
+       
       </div>
     </div>
   )
 }
+
+const ProfileData =({profile, isOwner, goToEditMode}) => {
+  return (
+      <div> 
+        {isOwner &&  <div> <button onClick={goToEditMode}>Edit</button></div>}
+         
+    <div>
+      <b>Full Name</b>: {profile.fullName}
+    </div>
+    <div>
+      <b>Looking a job:</b>  {profile.lookingForAJob === true ? 'yes' : 'no'}
+    </div>
+    <div>
+      {profile.lookingForAJobDescription &&
+        <div>
+          <b>My profesion skils</b>: {profile.lookingForAJobDescription}
+        </div>
+      }
+      <div />
+      <div>
+        <b>About me</b> : {profile.aboutMe}
+      </div>
+      <div>
+        <b>Contacts</b>: 
+        {Object.keys(profile.contacts).map((key ,id) => {
+        return  <Contact key={id + key} contactTitle={key}  contactValua={profile.contacts[key]} />
+      })}
+      </div>
+    </div>
+  </div>
+  )
+}
+
+
+ 
+const Contact = ({contactTitle, contactValua}) => {
+  return (
+    <div className={s.contact} >
+      <b >{contactTitle}</b>: {contactValua}
+    </div>
+  )
+}
+
 export default ProfileInfo;
