@@ -81,8 +81,8 @@ export const getUserProfile = (userId) => async (dispatch) => {
     let data = await usersAPI.getProfile(userId);
     dispatch(setUserProfile(data));
   } catch (error) {
-    
-    alert('404 page is not defind')
+
+    /* alert('404 page is not defind') */
   }
  
 }

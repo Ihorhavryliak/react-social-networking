@@ -88,4 +88,6 @@
 61. React.Suspense -
 62. React.lazy - завантаження вона як би але ми тим не користуємося, фле коли ми дійсно будемо
 цим користуватися вона швидко загрузиться (з затримкою)
-update - npm build  npm run build
+update - yarn build  yarn build then
+1. npm run build
+2. yarn run deploy
