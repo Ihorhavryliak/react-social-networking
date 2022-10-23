@@ -20,8 +20,16 @@ let store = configureStore({
       form: formReducer,
       app: appReudcer
     }
-}, applyMiddleware(thunkMiddleware));
+}
+// @ts-ignore
+, applyMiddleware(thunkMiddleware));
 
+
+export type AppStateType = ReturnType<typeof store.getState>;
+
+/* type AppDispatch = typeof store.dispatch; */
+
+// @ts-ignore
 window.you = store;
 
 export default store;

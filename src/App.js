@@ -5,7 +5,6 @@ import Music from './components/Music/Music';
 import Setting from './components/Setting/Setting';
 import SidebarContainer from './components/Slidebar/SidebarContainer';
 import UsersContainer from './components/Users/UsersContainer';
-/* import ProfileContainer from './components/Profile/ProfileContainer'; */
 import HeaderContainer from './components/Header/HeaderContainer';
 import Login from './components/Login/Login';
 import React, { Suspense } from 'react';
@@ -15,7 +14,7 @@ import { compose } from 'redux';
 import { initilizeAPP } from './redux/app-reducer';
 import Preloader from './components/Common/Preloader/Preloader';
 import { ErrorPage } from './components/ErrorPage/404';
-//import DialogsContainer from './components/Dialogs/DialogsContainer';
+
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'))
 const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'))
 
@@ -59,7 +58,7 @@ class App extends React.Component {
               <Route exact path='/news' element={<News />} />
               <Route exact path='/music' element={<Music />} />
               <Route exact path='/setting' element={<Setting />} />
-              <Route exact path='/users' element={<UsersContainer />} />
+              <Route exact path='/users' element={<UsersContainer pageTitle={'Users'} />} />
               <Route exact path='/login' element={<Login />} />
               <Route exact path='/404' element={<ErrorPage />} />
               <Route path='/profile/*' element={'404 Page not Found'} />

@@ -1,7 +1,16 @@
 import React from "react";
 
+type PropsType = {
+  status: string
+  upDateStatuses: (newStatus: string) => void
+}
 
-class ProfileStatus extends React.Component {
+type StateType = {
+  editMode: boolean
+  status: string
+}
+
+class ProfileStatus extends React.Component<PropsType, StateType> {
 
   state = {
     editMode: false,
@@ -21,13 +30,13 @@ class ProfileStatus extends React.Component {
     this.props.upDateStatuses(this.state.status);
   }
 
-  onStatusChange = (e) => {
+  onStatusChange = (e: React.FormEvent<HTMLInputElement>) => {
       this.setState({
       status: e.currentTarget.value
     });
   }
 
-  componentDidUpdate (prevProps, prevState) {
+  componentDidUpdate (prevProps: PropsType, prevState: StateType) {
 
     if (prevProps.status !== this.props.status) {
       this.setState({

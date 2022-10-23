@@ -6,26 +6,23 @@ import { useState } from 'react';
 import ProfileDataForm from './ProfileDataForm';
 
 
-const ProfileInfo = ({ profile, status, upDateStatuses, isOwner, savePhoto , saveProfile}) => {
-  const [editMode, setEditMode]  = useState(false)
-  if (!profile) {
+const ProfileInfo = ({ profile, status, upDateStatuses, isOwner, savePhoto, saveProfile, isFecbg }) => {
+  const [editMode, setEditMode] = useState(false);
+
+  if (isFecbg === true || !profile) {
     return <Preloader />
   }
-  
   const mainPhotoSelect = (e) => {
     if (e.target.files.length) {
       savePhoto(e.target.files[0])
     }
   }
-  
-  const getFormDta = async (values) => {
-  saveProfile(values).then(
-   () => { setEditMode(false)}
-  )
- 
-   
-   }
 
+  const getFormDta = async (values) => {
+    saveProfile(values).then(
+      () => { setEditMode(false) }
+    )
+  }
 
 
   return (
@@ -37,49 +34,49 @@ const ProfileInfo = ({ profile, status, upDateStatuses, isOwner, savePhoto , sav
 
         <ProfileStatusWithHooks status={status} upDateStatuses={upDateStatuses} />
 
-        {editMode ? <ProfileDataForm initialValues={profile} onSubmit={getFormDta} profile={profile} /> 
-        :  <ProfileData goToEditMode={() => {setEditMode(true)}} profile={profile} isOwner={isOwner} />}
-       
+        {editMode ? <ProfileDataForm initialValues={profile} onSubmit={getFormDta} profile={profile} />
+          : <ProfileData goToEditMode={() => { setEditMode(true) }} profile={profile} isOwner={isOwner} />}
+
       </div>
     </div>
   )
 }
 
-const ProfileData =({profile, isOwner, goToEditMode}) => {
+const ProfileData = ({ profile, isOwner, goToEditMode }) => {
   return (
-      <div> 
-        {isOwner &&  <div> <button onClick={goToEditMode}>Edit</button></div>}
-         
     <div>
-      <b>Full Name</b>: {profile.fullName}
-    </div>
-    <div>
-      <b>Looking a job:</b>  {profile.lookingForAJob === true ? 'yes' : 'no'}
-    </div>
-    <div>
-      {profile.lookingForAJobDescription &&
+      {isOwner && <div> <button onClick={goToEditMode}>Edit</button></div>}
+
+      <div>
+        <b>Full Name</b>: {profile.fullName}
+      </div>
+      <div>
+        <b>Looking a job:</b>  {profile.lookingForAJob === true ? 'yes' : 'no'}
+      </div>
+      <div>
+        {profile.lookingForAJobDescription &&
+          <div>
+            <b>My profesion skils</b>: {profile.lookingForAJobDescription}
+          </div>
+        }
+        <div />
         <div>
-          <b>My profesion skils</b>: {profile.lookingForAJobDescription}
+          <b>About me</b> : {profile.aboutMe}
         </div>
-      }
-      <div />
-      <div>
-        <b>About me</b> : {profile.aboutMe}
-      </div>
-      <div>
-        <b>Contacts</b>: 
-        {Object.keys(profile.contacts).map((key ,id) => {
-        return  <Contact key={id + key} contactTitle={key}  contactValua={profile.contacts[key]} />
-      })}
+        <div>
+          <b>Contacts</b>:
+          {Object.keys(profile.contacts).map((key, id) => {
+            return <Contact key={id + key} contactTitle={key} contactValua={profile.contacts[key]} />
+          })}
+        </div>
       </div>
     </div>
-  </div>
   )
 }
 
 
- 
-const Contact = ({contactTitle, contactValua}) => {
+
+const Contact = ({ contactTitle, contactValua }) => {
   return (
     <div className={s.contact} >
       <b >{contactTitle}</b>: {contactValua}

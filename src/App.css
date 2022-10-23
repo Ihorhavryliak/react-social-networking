@@ -1,4 +1,11 @@
 /* main */
+*  
+    { 
+      box-sizing: border-box;
+    margin: 0; 
+    padding: 0; 
+    border: 0; 
+}
 .app-wraper {
   margin: 0 auto;
   display: grid;
@@ -14,6 +21,7 @@
 .app-wraper-content{
   grid-area: c;
   background-color: rgb(126, 126, 126);
+  min-width: 670px;
 }
 .a :hover {
  

@@ -5,6 +5,7 @@ import Profile from './Profile';
 import withRouter from '../../hoc/withProfileUrl';
 import { compose } from 'redux';
 import { Navigate} from "react-router-dom";
+import Preloader from '../Common/Preloader/Preloader';
 
 
 class ProfileContainer extends React.Component {
@@ -45,11 +46,13 @@ class ProfileContainer extends React.Component {
 
     return (
       <div >
+             
         <Profile {...this.props} profile={this.props.profile} status={this.props.status}
           isOwner={!this.props.router.params.userId}
           upDateStatuses={this.props.upDateStatuses}
           savePhoto={this.props.savePhoto}
           saveProfile={this.props.saveProfile}
+          isFecbg={this.props.isFecbg}
         />
 
       </div>
@@ -63,7 +66,8 @@ const mapStateToProps = (state) => {
     profile: state.profilePage.profile,
     status: state.profilePage.status,
     authoraizerUserId: state.auth.userId,
-    isAuth: state.auth.isAuth
+    isAuth: state.auth.isAuth,
+    isFecbg: state.userPage.isFeching
   })
 }
 
