@@ -1,5 +1,5 @@
 
-type Frieds = {
+export type Frieds = {
  id: number, 
  name: string
 }

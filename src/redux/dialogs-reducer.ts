@@ -1,5 +1,4 @@
-const ADD_MESEGE = 'ADD-MESEGE';
-
+import { InfertActionsTypes } from "./redux-store";
 
 type MesegeDateType = {
   id: number,
@@ -24,13 +23,13 @@ let initialState = {
   ] as Array<diaDateType>,
 }
 
-export type InitialStateType = typeof initialState
 
-const dialogsReducer = (state = initialState, action: any): InitialStateType => {
+
+const dialogsReducer = (state = initialState, action: ActionTypes): InitialStateType => {
 
   switch (action.type) {
     
-    case ADD_MESEGE: 
+    case "RS/DIALOGS/ADD-MESEGE": 
       return {...state,
         mesegeDate : [...state.mesegeDate, {id: 4, name: action.newMessegeBoddy}],
       };
@@ -41,12 +40,12 @@ const dialogsReducer = (state = initialState, action: any): InitialStateType => 
 }
 
 
-type AdMessegeActionCreaterType = {
-  type: typeof ADD_MESEGE,
-  newMessegeBoddy: any
-}
-export const adMessegeActionCreater = 
-(newMessegeBoddy: string): AdMessegeActionCreaterType => ({type: ADD_MESEGE, newMessegeBoddy});
 
+export const actions = {
+  sendMesseege: (newMessegeBoddy: string) => ({type: 'RS/DIALOGS/ADD-MESEGE', newMessegeBoddy}) as const,
+}
 
 export default dialogsReducer;
+
+type ActionTypes = InfertActionsTypes<typeof actions> ;
+export type InitialStateType = typeof initialState
