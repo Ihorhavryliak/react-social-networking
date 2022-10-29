@@ -4,9 +4,8 @@ import News from './components/News/News';
 import Music from './components/Music/Music';
 import Setting from './components/Setting/Setting';
 import SidebarContainer from './components/Slidebar/SidebarContainer';
-import UsersContainer from './components/Users/UsersContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
-import Login from './components/Login/Login';
+import  { LoginPage } from './components/Login/LoginPage';
 import React, { Suspense } from 'react';
 import { connect } from 'react-redux';
 import withRouter from './hoc/withProfileUrl';
@@ -15,6 +14,7 @@ import { initilizeAPP } from './redux/app-reducer';
 import Preloader from './components/Common/Preloader/Preloader';
 import { ErrorPage } from './components/ErrorPage/404';
 import { AppStateType } from './redux/redux-store';
+import { UserPage } from './components/Users/UserPage';
 
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
 const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'));
@@ -59,7 +59,7 @@ class App extends React.Component<MapPropsType & DispatchPropsType> {
     if (!this.props.initial) {
       return <Preloader />
     }
-
+  
     return (
       <div className="app-wraper">
         <HeaderContainer />
@@ -75,8 +75,8 @@ class App extends React.Component<MapPropsType & DispatchPropsType> {
               <Route  path='/news' element={<News />} />
               <Route  path='/music' element={<Music />} />
               <Route  path='/setting' element={<Setting />} />
-              <Route  path='/users' element={<UsersContainer pageTitle={'Users'} />} />
-              <Route  path='/login' element={<Login />} />
+              <Route  path='/users' element={<UserPage pageTitle={'Users'} />} />
+              <Route  path='/login' element={<LoginPage />} />
               <Route  path='/404' element={<ErrorPage />} />
               <Route path='/profile/*' element={'404 Page not Found'} />
               <Route  path='*' element={'404 Page not Found'} />

@@ -102,13 +102,13 @@ const _followUnfolowFlow = async (dispatch: Dispatch<ActionTypes>, userId: numbe
   dispatch(actionsUserReducer.toggFollowingProgres(false, userId));
 }
 
-export const follow = (userId: number): ThunkType => {
+export const follows = (userId: number): ThunkType => {
   return async (dispatch) => {
     _followUnfolowFlow(dispatch, userId, usersAPI.follow.bind(usersAPI), actionsUserReducer.followedSuccess)
   }
 }
 
-export const unfollow = (userId: number): ThunkType => {
+export const unfollows = (userId: number): ThunkType => {
   return async (dispatch) => {
     _followUnfolowFlow(dispatch, userId, usersAPI.unfollow.bind(usersAPI), actionsUserReducer.unfollowSuccess);
   }

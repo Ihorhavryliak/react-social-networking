@@ -31,7 +31,7 @@ export type AppStateType = ReturnType<typeof store.getState>;
 
 export type InfertActionsTypes<T> = T extends {[keys: string]: (...args: any[]) => infer U} ? U : never;
 export type BaseThunkType<A extends Action = Action, R = Promise<void>> =  ThunkAction<R, AppStateType, unknown, A>
-
+export type AppDispatch = typeof store.dispatch
 /* type AppDispatch = typeof store.dispatch; */
 // 1 type PropertyesTypes<T> = T extends {[keys: string]: infer U} ? U : never;
 // 2 old version export type InfertActionsTypes<T extends {[keys: string]: (...args: any[]) => any}> = ReturnType<PropertyesTypes<T>>
