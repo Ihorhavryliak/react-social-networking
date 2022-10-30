@@ -1,7 +1,7 @@
 import { Field, InjectedFormProps, reduxForm } from "redux-form";
 import { maxLengthCreator, reqiaret } from "../../../utils/validator";
 import { creatField, Textarea } from "../../Common/Preloader/FormControl/FormsControl";
-import { NewMessegeFormType } from "../Dialogs";
+import { NewMessegeFormType } from "../DialogsPage";
 
 const maxLength50 = maxLengthCreator(50);
 

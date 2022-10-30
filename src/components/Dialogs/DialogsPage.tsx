@@ -3,26 +3,28 @@ import DialogItem from './DialogItem/DialogItem';
 import Messege from './Messege/Messege';
 import React from 'react';
 import { AddMessegeFormRedux } from './AddMessegeForm/AddMessegeForm';
-import { InitialStateType } from '../../redux/dialogs-reducer';
+import { actions } from '../../redux/dialogs-reducer';
+import { useSelector } from 'react-redux';
+import { AppDispatch } from '../../redux/redux-store';
+import { useDispatch } from 'react-redux';
+import { getDialogsPage } from '../../redux/user-selectors';
 
-type OwnProps = {
-  dialogsPage: InitialStateType
-  sendMesseege: (messege: string) => void
-}
 
 export type NewMessegeFormType = {
   newMessegeBoddy: string,  
-}
+};
 
-const Dialog: React.FC<OwnProps> = (props) => {
+const DialogsPage: React.FC = (props) => {
 
-  let state = props.dialogsPage;
+  const dialogsPage = useSelector(getDialogsPage);
+  const dispatch: AppDispatch = useDispatch();
+  let state = dialogsPage;
   let dialogList = state.diaDate.map(names => (<DialogItem key={names.id}  src={names.src} name={names.name} id={names.id}/>));
   let phraList = state.mesegeDate.map(phar => (<Messege key={phar.id}  messege={phar.name} />) );
   
   const handleSubmit = (values: NewMessegeFormType) => {
-    props.sendMesseege(values.newMessegeBoddy)
-  }
+    dispatch(actions.sendMesseege(values.newMessegeBoddy))
+  };
 
 
   return (
@@ -38,6 +40,6 @@ const Dialog: React.FC<OwnProps> = (props) => {
   )
 }
 
+export default DialogsPage;
 
 
-export default Dialog;

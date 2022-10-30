@@ -1,5 +1,9 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { upDateStatuses } from "../../../redux/profile_reducer";
+import { AppDispatch, AppStateType } from "../../../redux/redux-store";
 
 
 type ProfileStatusWithHooksType = {
@@ -8,13 +12,15 @@ type ProfileStatusWithHooksType = {
 }
 
 const ProfileStatusWithHooks: React.FC<ProfileStatusWithHooksType> = (props) => {
+  const dispatch: AppDispatch = useDispatch();
+  const status = useSelector((state: AppStateType) => state.profilePage.status)
 
   let [editMode, setEditMode] = useState<boolean>(false);
-  let [status, setStatus] = useState<string>(props.status);
+  let [statuse, setStatus] = useState<string>(status);
   
   useEffect(() => {
-    setStatus(props.status);
-  }, [props.status])
+    setStatus(status);
+  }, [status])
 
 
   const activateMode = () => {
@@ -23,7 +29,7 @@ const ProfileStatusWithHooks: React.FC<ProfileStatusWithHooksType> = (props) => 
 
   let deActivateAditMod = () => {
    setEditMode(false);
-   props.upDateStatuses(status);
+   dispatch(upDateStatuses(statuse));
   };
 
   const onStatusChange = (e: React.FormEvent<HTMLInputElement> ) => {
@@ -34,13 +40,13 @@ const ProfileStatusWithHooks: React.FC<ProfileStatusWithHooksType> = (props) => 
     <div>
       {!editMode &&
         <div>
-        <b>Status</b>:  <span onDoubleClick={activateMode}>{props.status || '----'}</span>
+        <b>Status</b>:  <span onDoubleClick={activateMode}>{status || '----'}</span>
         </div>
       }
       {editMode &&
         <div >
        <b>Status</b>:   <input onChange={onStatusChange} autoFocus={true} onBlur={deActivateAditMod}
-            value={status}></input>
+            value={statuse}></input>
         </div>
       }
     </div>

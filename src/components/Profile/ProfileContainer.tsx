@@ -105,3 +105,86 @@ export default compose<React.ComponentType>(
   connect/* <MapStatePropsType, MapDispatchPropsType, IsOwnType, AppStateType> */(mapStateToProps, { getUserProfile, getStatus, upDateStatuses, savePhoto, saveProfile }),
   withRouter
  /*  withAuthRedirect */)(ProfileContainer);
+
+
+/* import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { getStatus, getUserProfile, savePhoto, saveProfile, upDateStatuses } from '../../redux/profile_reducer';
+import Profile from './Profile';
+import withRouter from '../../hoc/withProfileUrl';
+import { compose } from 'redux';
+import { Navigate, useLocation, useNavigate, useParams } from "react-router-dom";
+import { AppStateType } from '../../redux/redux-store';
+import { useSelector } from 'react-redux';
+
+
+
+
+type IsOwnType = {
+ 
+}
+
+
+
+export const ProfileContainer: React.FC<IsOwnType> = (props) => {
+
+  const authoraizerUserId = useSelector((state: AppStateType) => state.auth.userId);
+  let getIdUser = useParams();
+  
+  if (getIdUser.userId === undefined) {
+    getIdUser.userId = null;
+  }
+  debugger
+
+
+
+  
+  const refreshProfile = () => {
+
+    let userId: number | null = +getIdUser.userId;
+  debugger
+    if (!userId) {
+      userId = authoraizerUserId;
+    }
+
+    if (!userId) {
+      console.error('Id shoud be exist in URL params or state')
+    } else {
+      debugger
+      getUserProfile(userId);
+      getStatus(userId);
+    }
+
+  }
+  useEffect(() => {
+    refreshProfile();
+  }, [getIdUser.userId])
+
+  const profile = useSelector((state: AppStateType) => state.profilePage.profile);
+
+
+
+  let userId: number | null = +getIdUser.userId;
+
+  if (!userId) {
+    userId = authoraizerUserId;
+    if (!userId) {
+      return <Navigate to='/login' />
+    }
+  }
+
+  return (
+    <div >
+      <h1>Profile</h1>
+      <Profile isOwner={!getIdUser.userId}//
+
+      />
+
+    </div>
+  )
+
+}
+ */
+
+
+

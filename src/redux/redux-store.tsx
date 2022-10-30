@@ -6,6 +6,8 @@ import slideBarReducer from './sidebar_block_reducer'
 import userReducer from './usere_reducer';
 import {reducer as formReducer} from 'redux-form'
 import appReudcer from './app-reducer';
+import chatReducer from './chat-reducer';
+
 
 
 
@@ -21,7 +23,9 @@ let store = configureStore({
       // @ts-ignore
       auth: authReducer,
       form: formReducer,
-      app: appReudcer
+      app: appReudcer,
+      // @ts-ignore
+      chat: chatReducer,
     }
 }
 );

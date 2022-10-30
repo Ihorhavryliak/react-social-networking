@@ -13,13 +13,14 @@ const Sidebar: React.FC<SidebarType> = (props) => {
 
   return (
     <nav className={s.nav}>
-      <div ><NavLink to="/profile" 
-      className = { navData => navData.isActive ? s.active : s.item }>Profile</NavLink> </div>
+      <div >
+        <NavLink to="/profile" className = { navData => navData.isActive ? s.active : s.item }>Profile</NavLink> </div>
       <div ><NavLink to="/dialogs" className = { navData => navData.isActive ? s.active : s.item }>Messege</NavLink> </div>
+      <div ><NavLink to="/users" className = { navData => navData.isActive ? s.active : s.item }>Users</NavLink> </div>
       <div ><NavLink to="/news" className = { navData => navData.isActive ? s.active : s.item }>News</NavLink> </div>
       <div ><NavLink to="/music" className = { navData => navData.isActive ? s.active : s.item }>Music</NavLink> </div>
       <div ><NavLink to="/setting" className = { navData => navData.isActive ? s.active : s.item }>Settings</NavLink> </div>
-      <div ><NavLink to="/users" className = { navData => navData.isActive ? s.active : s.item }>Users</NavLink> </div>
+     
       <div> Friends
         <div>
          {nameFrienends}
