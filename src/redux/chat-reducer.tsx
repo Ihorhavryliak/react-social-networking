@@ -1,15 +1,13 @@
 import { Dispatch } from "react";
-import { FormAction, stopSubmit } from "redux-form";
-import { ResultCodeEnum,  ResultCodeForCaptchaEnum} from "../api/api";
-import { authAPI } from "../api/auth-api";
-import { chatAPI, ChatMessaeType } from "../api/chat-api";
-import { securytyCapchaApi } from "../api/securyty-capcha-api";
+import { FormAction } from "redux-form";
+import { chatAPI, ChatMessaeAPIType } from "../api/chat-api";
 import {BaseThunkType, InfertActionsTypes } from "./redux-store";
-
-
+import {v1} from 'uuid';
+type StatusType = 'pending' | 'ready' | 'error';
+type ChatMessegeType = ChatMessaeAPIType & {id: string}
 let initialState = {
-  message: [] as ChatMessaeType[],
-  
+  message: [] as ChatMessegeType[],
+  status: 'pending' as StatusType
 }
 
 const chatReducer = (state = initialState, action: ActionCreatsTypes): initialStateType => {
@@ -18,8 +16,13 @@ const chatReducer = (state = initialState, action: ActionCreatsTypes): initialSt
     case "RSN/chat/MESSAGES_RECIVE":
       return {
         ...state,
-        message: [...state.message, ...action.payload.message]
+        message: [...state.message, ...action.payload.message.map(m => ({...m, id: v1()}))].filter( (m, index, arr) => index >= arr.length - 100)
       }
+      case "RSN/chat/STATUS_CHANGE":
+        return {
+          ...state,
+          status: action.payload.status
+        }
     default:
       return state;
   }
@@ -29,15 +32,17 @@ const chatReducer = (state = initialState, action: ActionCreatsTypes): initialSt
 
 
 export const actions = {
-  messageRecive: (message: ChatMessaeType[]) => 
+  messageRecive: (message: ChatMessaeAPIType[]) => 
   ({type: 'RSN/chat/MESSAGES_RECIVE', payload: {message}} as const),
+  statusChange: (status: StatusType) => 
+  ({type: 'RSN/chat/STATUS_CHANGE', payload: {status}} as const),
 }
 
 
 //thunk
-let _newMassageHand: ((message: ChatMessaeType[]) => void) | null = null;
+let _newMassageHand: ((message: ChatMessaeAPIType[]) => void) | null = null;
 
-const newMassageHandleCreator = (dispatch: Dispatch<({})>) => {
+const newMassageHandleCreator = (dispatch: Dispatch<{}>) => {
   if (_newMassageHand === null) {
        _newMassageHand = (message) => {
            dispatch(actions.messageRecive(message));
@@ -48,14 +53,28 @@ const newMassageHandleCreator = (dispatch: Dispatch<({})>) => {
 
 }
 
-export const startMessageLisiner = (): ThunkType => async (dispatch) => {
+let _statusChange: ((status: StatusType) => void) | null = null;
 
+const statusChangeCreator = (dispatch: Dispatch<{}> ) => {
+  if (_statusChange === null) {
+    _statusChange = (status) => {
+           dispatch(actions.statusChange(status));
+      }
+  }
+  
+  return _statusChange;
+
+}
+
+export const startMessageLisiner = (): ThunkType => async (dispatch) => {
     chatAPI.start();
-    chatAPI.subscrube(newMassageHandleCreator(dispatch));
+    chatAPI.subscrube('message-reseve', newMassageHandleCreator(dispatch));
+    chatAPI.subscrube('status-change', statusChangeCreator(dispatch));
 };
 
 export const stopMessageLisiner = (): ThunkType => async (dispatch) => {
-  chatAPI.ussubscrube(newMassageHandleCreator(dispatch));
+  chatAPI.ussubscrube('message-reseve', newMassageHandleCreator(dispatch));
+  chatAPI.ussubscrube('status-change', statusChangeCreator(dispatch));
   chatAPI.stop();
 };
 export const sendMessege = (message: string): ThunkType => async (dispatch) => {

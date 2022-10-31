@@ -1,15 +1,17 @@
+import { Input } from "antd";
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { upDateStatuses } from "../../../redux/profile_reducer";
 import { AppDispatch, AppStateType } from "../../../redux/redux-store";
-
+import style from './ProfileInfo.module.css';
 
 type ProfileStatusWithHooksType = {
   status: string
   upDateStatuses: (status: string) => void
 }
+
 
 const ProfileStatusWithHooks: React.FC<ProfileStatusWithHooksType> = (props) => {
   const dispatch: AppDispatch = useDispatch();
@@ -37,16 +39,17 @@ const ProfileStatusWithHooks: React.FC<ProfileStatusWithHooksType> = (props) => 
 }
 
   return (
+    
     <div>
       {!editMode &&
-        <div>
-        <b>Status</b>:  <span onDoubleClick={activateMode}>{status || '----'}</span>
+        <div className={style.status}>
+       {/* <span className={style.statusName}> <b>Status</b>:</span> */}<span>   <Input className={style.fieldStatus} value={status || '----' } onClick={activateMode} /></span>
         </div>
       }
       {editMode &&
-        <div >
-       <b>Status</b>:   <input onChange={onStatusChange} autoFocus={true} onBlur={deActivateAditMod}
-            value={statuse}></input>
+        <div className={style.status}>
+       {/* <span className={style.statusName}> <b>Status</b>:</span> */}<span>   <Input className={style.fieldStatus} onChange={onStatusChange} autoFocus={true} onBlur={deActivateAditMod}
+            value={statuse} /></span>
         </div>
       }
     </div>

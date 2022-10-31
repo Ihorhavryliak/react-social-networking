@@ -5,7 +5,8 @@
   padding: 10px;
 }
 .mainPhoto{
- max-width:  150px;
+/*  max-width:  150px; */
+border-radius: 50%;
 }
 .contact{
  padding-left: 10px;
@@ -14,4 +15,40 @@
   border: 1px solid red;
   padding: 5px;
   color: brown;
+}
+
+.blockDescripsin{
+  padding: 10px 10px 10px 50px;
+
+  border-right: 1px dashed #a9a9a9;
+  border-bottom: 1px dashed #a9a9a9;
+}
+
+.sectionInformation{
+  display: grid;
+  grid-column: auto;
+  grid-template-columns: 2fr 9fr;
+  grid-column-gap: 20px ;
+}
+.status{
+  /* display: grid;
+  grid-template-columns: 60px 9fr; */
+}
+.statusName{
+  padding: 2px 12px;
+}
+.fieldStatus{
+  background: #e6e6e6 ;
+  border: none ;
+  padding: 2px 12px;
+  border-radius: 0px 4px 0px 0px;
+}
+.file {
+  max-width: 87px;
+    padding: 0;
+}
+.containerFileGrid{
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: 100px 3fr;
 }

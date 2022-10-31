@@ -6,6 +6,7 @@ import React, { ChangeEvent, useState } from 'react';
 import ProfileDataForm from './ProfileDataForm';
 import { ProfilesType } from '../Profile';
 import { ContactsType, ProfileType } from '../../../types/types';
+import { Button,  Input } from 'antd';
 
 
 
@@ -29,19 +30,33 @@ const ProfileInfo: React.FC<ProfilesType> = ({ profile, status, upDateStatuses, 
     )
   }
 
-
+  const goToEditMode = () => {
+    setEditMode(true)
+  }
   return (
-    <div >
-      <div className={s.descri_pbloxk}>
-        <img alt='photos' src={profile.photos.large || userPhoto} className={s.mainPhoto} />
+    <div className={s.sectionInformation} >
+      <div>
+      <img alt='photos' src={profile.photos.large || userPhoto} className={s.mainPhoto} />
+      <div className={s.containerFileGrid}>
+        <div>
+        {isOwner && <Input name='sdd' className={s.file}  type={'file'} onChange={mainPhotoSelect} />}
+        </div>
+        <div>
+        {!editMode && isOwner && <div> <Button onClick={goToEditMode}>Edit information</Button></div>}
+        </div>
+      </div>
+      
+      
 
-        {isOwner && <input type={'file'} onChange={mainPhotoSelect} />}
+      </div>
+      <div className={s.descri_pbloxk}>
+
 
         <ProfileStatusWithHooks status={status} upDateStatuses={upDateStatuses} />
     
         {   
-        editMode ? <ProfileDataForm initialValues={profile} onSubmit={getFormData} profile={profile} />
-          : <ProfileData goToEditMode={() => { setEditMode(true) }} profile={profile} isOwner={isOwner} />}
+        editMode ?  <ProfileDataForm initialValues={profile} onSubmit={getFormData} profile={profile} />
+          : <ProfileData  profile={profile} /* isOwner={isOwner} */ />}
 
       </div>
     </div>
@@ -51,14 +66,14 @@ const ProfileInfo: React.FC<ProfilesType> = ({ profile, status, upDateStatuses, 
 
 type ProfileDataType = {
   profile: ProfileType, 
-  isOwner: boolean, 
-  goToEditMode: () => void
+/*   isOwner: boolean, 
+  goToEditMode: () => void */
 }
 
-const ProfileData: React.FC<ProfileDataType> = ({ profile, isOwner, goToEditMode }) => {
+const ProfileData: React.FC<ProfileDataType> = ({ profile}) => {
   return (
-    <div>
-      {isOwner && <div> <button onClick={goToEditMode}>Edit</button></div>}
+    <div className={s.blockDescripsin}>
+     
 
       <div>
         <b>Full Name</b>: {profile.fullName}
