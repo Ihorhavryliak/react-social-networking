@@ -52,3 +52,28 @@ border-radius: 50%;
   display: grid;
   grid-template-columns: 100px 3fr;
 }
+.profileEditForm{
+  max-width: 400px;
+}
+.windowForm{
+  width: 60%;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgb(102, 102, 102);
+  padding: 50px;
+  /* zIndex: 1000; */
+}
+.closeWindow{
+  float: right;
+  cursor: pointer;
+  color: white;
+  font-size: 29px;
+  font-weight: bold;
+  position: relative;
+  top: -32px;
+}
+.closeWindow:hover{
+  color: rgb(20, 164, 212);
+}

@@ -7,16 +7,20 @@ import ProfileDataForm from './ProfileDataForm';
 import { ProfilesType } from '../Profile';
 import { ContactsType, ProfileType } from '../../../types/types';
 import { Button,  Input } from 'antd';
+import { getisSetDate } from '../../../redux/profile-selectors';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { actions } from '../../../redux/profile_reducer';
 
 
 
 const ProfileInfo: React.FC<ProfilesType> = ({ profile, status, upDateStatuses, isOwner, savePhoto, saveProfile, isFecbg }) => {
- 
-  const [editMode, setEditMode] = useState(false);
-
-  if (isFecbg === true || !profile) {
+  const isSetDate= useSelector(getisSetDate) ;
+  const dispatch = useDispatch();
+  if (!profile) {
     return <Preloader />
   }
+  
   const mainPhotoSelect = (e: ChangeEvent<HTMLInputElement> ) => {
     if (e.target.files?.length) {
       savePhoto(e.target.files[0])
@@ -24,14 +28,19 @@ const ProfileInfo: React.FC<ProfilesType> = ({ profile, status, upDateStatuses, 
   }
 
   const getFormData = async (values: ProfileType) => {
-
-    saveProfile(values).then(
-      () => { setEditMode(false) }
-    )
+    saveProfile(values);
   }
 
   const goToEditMode = () => {
-    setEditMode(true)
+    dispatch(actions.closeEditForm(true)) 
+  }
+  const closeEditMode = () => {
+    dispatch(actions.closeEditForm(false)) 
+  }
+  const preloader = () => {
+    if (isFecbg === true) {
+      return <Preloader />
+    }
   }
   return (
     <div className={s.sectionInformation} >
@@ -39,23 +48,20 @@ const ProfileInfo: React.FC<ProfilesType> = ({ profile, status, upDateStatuses, 
       <img alt='photos' src={profile.photos.large || userPhoto} className={s.mainPhoto} />
       <div className={s.containerFileGrid}>
         <div>
+          {
+             preloader()
+          }
         {isOwner && <Input name='sdd' className={s.file}  type={'file'} onChange={mainPhotoSelect} />}
         </div>
         <div>
-        {!editMode && isOwner && <div> <Button onClick={goToEditMode}>Edit information</Button></div>}
+        {/* !isSetDate && */ isOwner && <div> <Button onClick={goToEditMode}>Edit information</Button></div>}
         </div>
       </div>
-      
-      
-
       </div>
       <div className={s.descri_pbloxk}>
-
-
         <ProfileStatusWithHooks status={status} upDateStatuses={upDateStatuses} />
-    
         {   
-        editMode ?  <ProfileDataForm initialValues={profile} onSubmit={getFormData} profile={profile} />
+        isSetDate ?  <ProfileDataForm initialValues={profile}  isFecbg={isFecbg} onSubmit={getFormData} closeEditMode={closeEditMode} profile={profile} />
           : <ProfileData  profile={profile} /* isOwner={isOwner} */ />}
 
       </div>
@@ -74,29 +80,36 @@ const ProfileData: React.FC<ProfileDataType> = ({ profile}) => {
   return (
     <div className={s.blockDescripsin}>
      
-
-      <div>
-        <b>Full Name</b>: {profile.fullName}
-      </div>
+      {profile.fullName && <div>
+        <b>Full Name</b> {profile.fullName}
+      </div> }
+      {profile.lookingForAJob &&
       <div>
         <b>Looking a job:</b>  {profile.lookingForAJob === true ? 'yes' : 'no'}
       </div>
+       }
+
       <div>
+     
         {profile.lookingForAJobDescription &&
           <div>
             <b>My profesion skils</b>: {profile.lookingForAJobDescription}
           </div>
         }
         <div />
+        {profile.aboutMe &&
         <div>
           <b>About me</b> : {profile.aboutMe}
         </div>
+        }
+        {Object.keys(profile.contacts).map((key, id) => !profile.contacts[key as keyof ContactsType]) && 
         <div>
           <b>Contacts</b>:
           {Object.keys(profile.contacts).map((key, id) => {
             return <Contact key={id + key} contactTitle={key} contactValua={profile.contacts[key  as keyof ContactsType]} />
           })}
         </div>
+        }
       </div>
     </div>
   )
@@ -108,6 +121,7 @@ type ContactType = {
 }
 
 const Contact: React.FC<ContactType> = ({ contactTitle, contactValua }) => {
+  if(!contactValua) return null;
   return (
     <div className={s.contact} >
       <b >{contactTitle}</b>: {contactValua}

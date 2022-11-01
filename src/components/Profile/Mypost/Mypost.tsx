@@ -1,36 +1,39 @@
 import se from './Mypost.module.css';
 import Post from './Post/Post';
-import React from 'react';
+import React, { useState } from 'react';
 import { maxLengthCreator } from '../../../utils/validator';
 import { PostDateType } from '../../../types/types';
 import { GetFormDateDedux } from './AddNewPostForm';
+import { getPostDate } from '../../../redux/dialog-selector';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { actions } from '../../../redux/profile_reducer';
+import { reset } from 'redux-form';
 
-export const maxLenght10 = maxLengthCreator(10);
+export const maxLenght10 = maxLengthCreator(65);
 
 
-export type MapPropsType = {
-  postDate: Array<PostDateType>
-}
-export type MapDispatchPropsType = {
-  adPost: (newPostText: string) => void
-}
 
-const Mypost: React.FC <MapPropsType & MapDispatchPropsType> = React.memo(props => {
-  let dialogElements = props.postDate.map(phra =>
-    (<Post messege={phra.name} key={phra.id} count={phra.count} />));
+const Mypost: React.FC = React.memo(props => {
+  const postDate = useSelector(getPostDate);
+  const dispatch = useDispatch();
+  let copyPostDate = [...postDate];
+  let dialogElements = copyPostDate.reverse().map(phra =>(<Post messege={phra.name} key={phra.id} count={phra.count} />));
+
   const onAddPost = (values: {newPostText: string}) => {
-    props.adPost(values.newPostText);
+   dispatch(actions.adPostActionCreat(values.newPostText));
+   dispatch(reset('profileAddNewPostForm'))
   };
 
   return (
     <div className={se.postBlock}>
       <h3 className={se.myPost}>
-        my pos
+        My posts
       </h3>
       <div>
         <GetFormDateDedux onSubmit={onAddPost} />
       </div>
-      <div className={se.post}>
+      <div className={se.post} >
         {dialogElements}
       </div>
     </div>

@@ -16,12 +16,12 @@ type PropsType = {};
 const AddNewPostForm: React.FC<InjectedFormProps<AddNewPostFormValuesType, PropsType> & PropsType> = (props) => {
 
   return (
-    <form onSubmit={props.handleSubmit}>
+    <form onSubmit={props.handleSubmit} style={{maxWidth: '500px'}}>
       <div>
-        {creatField<LoginFormValuesKeysTypeKeys>('Enter your messege', 'newPostText', [reqiaret, maxLenght10], Textarea)}
+        {creatField<LoginFormValuesKeysTypeKeys>('Enter your messege', 'newPostText', [reqiaret,maxLenght10], Textarea)}
       </div>
       <div>
-        <button>Add post</button>
+        <button style={{float: 'right', marginTop: '15px'}} className="ant-btn ant-btn-default">Add post</button>
       </div>
     </form>
   );

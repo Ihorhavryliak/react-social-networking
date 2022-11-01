@@ -36,9 +36,6 @@ class ProfileContainer extends React.Component<PropsType> {
     let userId: number | null = +this.props.router.params.userId;
     if (!userId) {
       userId = this.props.authoraizerUserId;
-      /*   if (!userId) {
-          return <Navigate to='/login' />
-        } */
     }
     
     if (!userId) {

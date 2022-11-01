@@ -1,6 +1,7 @@
 import ProfileInfo from './ProfileInfo/ProfileInfo';
-import MyPostContainer from './Mypost/MyPostContainer'
+
 import { ProfileType } from '../../types/types';
+import Mypost from './Mypost/Mypost';
 
 export type ProfilesType = {
   profile: ProfileType | null
@@ -22,7 +23,7 @@ const Profile: React.FC<ProfilesType> = (props) => {
        saveProfile={props.saveProfile}
        isFecbg={props.isFecbg}
       status={props.status} upDateStatuses={props.upDateStatuses}/>
-      <MyPostContainer />
+      <Mypost />
   </div>
   )
 }

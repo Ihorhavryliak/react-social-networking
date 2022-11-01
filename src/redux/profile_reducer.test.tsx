@@ -11,6 +11,7 @@ let state = {
   profile: null,
   status: '',
   isFecbg: false,
+  isSetDate: false,
 }
 
 

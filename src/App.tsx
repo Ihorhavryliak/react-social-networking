@@ -54,7 +54,7 @@ type DispatchPropsType = {
 
 class App extends React.Component<MapPropsType & DispatchPropsType> {
 
-  cathUnhandleError = (promiseReject: PromiseRejectionEvent) => {
+/*   cathUnhandleError = (promiseReject: PromiseRejectionEvent) => {
     alert('Some error')
   }
   componentDidMount() {
@@ -63,12 +63,12 @@ class App extends React.Component<MapPropsType & DispatchPropsType> {
   }
   componentWillUnmount() {
     window.removeEventListener("unhandledrejection", this.cathUnhandleError);
-  }
+  } */
 
-  /*  componentDidMount() {
+   componentDidMount() {
      this.props.initilizeAPP()
    }
-  */
+ 
   render() {
 
     if (!this.props.initial) {

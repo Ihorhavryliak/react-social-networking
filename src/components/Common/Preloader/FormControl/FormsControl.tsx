@@ -28,15 +28,23 @@ export const Textarea: React.FC<WrappedFieldProps> = (props) => {
   //const { input, meta, ...restProps } = props;
   const { input, meta, ...restProps } = props;
   return (
-    <FormControl {...props}><textarea {...input} {...restProps} /></FormControl>
+    <FormControl {...props}><textarea className="ant-input"  {...input} {...restProps} /></FormControl>
   )
 }
 
 export const Input: React.FC<WrappedFieldProps> = (props) => {
   const { input, meta, ...restProps } = props;
-  return (
-    <FormControl {...props}><input {...input} {...restProps} /></FormControl>
-  )
+    // @ts-ignore
+  if (restProps.type === 'checkbox') {
+    return (
+      <FormControl {...props}><input  {...input} {...restProps} /></FormControl>
+    )
+  } else { 
+    return (
+      <FormControl {...props}><input className="ant-input" {...input} {...restProps} /></FormControl>
+    )
+  }
+
 }
 
 

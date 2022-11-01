@@ -6,7 +6,7 @@ type PropsType = {
 
 const Preloader: React.FC<PropsType> = (props) => {
   return (
-    <div style={{backgroundColor: 'white'}}>
+    <div /* style={{backgroundColor: 'white'}} */ className='preloAder'>
             <img alt="Load" src={preloader} />
           </div> 
   )
