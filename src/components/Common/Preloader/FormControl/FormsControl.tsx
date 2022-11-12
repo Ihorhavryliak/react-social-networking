@@ -21,7 +21,6 @@ const FormControl: React.FC<FormControlPropsType> = ({meta: { touched, error }, 
 }
 
 export type TextareaType = {
-
 }
 
 export const Textarea: React.FC<WrappedFieldProps> = (props) => {
@@ -33,11 +32,14 @@ export const Textarea: React.FC<WrappedFieldProps> = (props) => {
 }
 
 export const Input: React.FC<WrappedFieldProps> = (props) => {
-  const { input, meta, ...restProps } = props;
+      // @ts-ignore
+  const { input, meta, text, ...restProps } = props;
     // @ts-ignore
   if (restProps.type === 'checkbox') {
     return (
-      <FormControl {...props}><input  {...input} {...restProps} /></FormControl>
+      <FormControl  {...props}><input style={{    width: '13px'}}  {...input} {...restProps} />
+     <span className='textChechboxLogin'>{text}</span> 
+      </FormControl>
     )
   } else { 
     return (
@@ -52,9 +54,11 @@ export const Input: React.FC<WrappedFieldProps> = (props) => {
 export function creatField<FormKeysType extends string> (placeholder: string | undefined, name: FormKeysType, 
   validate: Array<ValidatorFiledType>,
   component:  React.FC<WrappedFieldProps>, props = {}, text = '')  {
+
   return (
-    <div>
-      <Field placeholder={placeholder} validate={validate} name={name} component={component}  {...props} /> {text}
+    <div className='fieldCreteForm'>
+      <Field className="ant-input" placeholder={placeholder} text={text} validate={validate} name={name} component={component}  {...props} />
+      
     </div>
   )
 

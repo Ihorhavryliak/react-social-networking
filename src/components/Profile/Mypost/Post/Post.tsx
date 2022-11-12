@@ -2,7 +2,7 @@
 import { useSelector } from 'react-redux';
 import { getMyPhoto } from '../../../../redux/dialog-selector';
 import se from './Post.module.css';
-
+import defaul from '../../../../assets/images/image-user.png'
 type PostType = {
   count: number
   messege: string
@@ -12,17 +12,13 @@ type PostType = {
 const Post: React.FC<PostType> = (props) => {
 
   const photoMe = useSelector(getMyPhoto);
+  
   return (
             <div className={se.item}>
-              <img alt="users" src={photoMe ? photoMe : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQG84i10xhs06HlEh2T3aDrrOsG8E1esNT7w&usqp=CAU"}></img>
-         
+              <img alt="users" src={photoMe ? photoMe : defaul}></img>
           <span className={se.textMessage}>{props.messege}</span>  <span className={se.likeCount}>Likes: {props.count}</span>
-
               <div>
-           
-               
               </div>
-              
             </div>
   )
 }

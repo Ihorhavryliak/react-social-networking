@@ -1,45 +1,41 @@
 import se from './Dialogs.module.css';
-import DialogItem from './DialogItem/DialogItem';
-import Messege from './Messege/Messege';
-import React from 'react';
-import { AddMessegeFormRedux } from './AddMessegeForm/AddMessegeForm';
-import { actions } from '../../redux/dialogs-reducer';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
 import { AppDispatch } from '../../redux/redux-store';
 import { useDispatch } from 'react-redux';
-import { getDialogsPage } from '../../redux/user-selectors';
+import { setDialog } from '../../redux/dialogs-reducer';
+import { useSelector } from 'react-redux';
+import { getInformDialog, } from '../../redux/dialog-selector';
+import { Navigate } from 'react-router-dom';
+import { getisAiuth } from '../../redux/chat-selector';
+import { ListDialogsPage } from './ListDialogsPage';
 
 
-export type NewMessegeFormType = {
-  newMessegeBoddy: string,  
-};
+export const DialogsPage = React.memo(() => {
 
-const DialogsPage: React.FC = (props) => {
-
-  const dialogsPage = useSelector(getDialogsPage);
+  const userId = useSelector(getInformDialog);
   const dispatch: AppDispatch = useDispatch();
-  let state = dialogsPage;
-  let dialogList = state.diaDate.map(names => (<DialogItem key={names.id}  src={names.src} name={names.name} id={names.id}/>));
-  let phraList = state.mesegeDate.map(phar => (<Messege key={phar.id}  messege={phar.name} />) );
-  
-  const handleSubmit = (values: NewMessegeFormType) => {
-    dispatch(actions.sendMesseege(values.newMessegeBoddy))
-  };
+
+  useEffect(() => {
+    dispatch(setDialog())
+  }, [])
 
 
+
+  /* const birthday = Date.parse('2022-11-08 T13:46:46.523'); 
+  console.log(birthday) */
   return (
-        <div className={se.dialogs}>
-          <div className={se.dialogs_items}>
-          {dialogList}
-          </div>
-          <div className={se.messeges}>
-            {phraList}
-          </div>
-          <AddMessegeFormRedux onSubmit={handleSubmit} />
-        </div>
-  )
-}
+    <div className={se.dialogs}>
+      {userId && userId.map(d => {
+        return (
+          <ListDialogsPage d={d} />
+        )
+      })}
+    </div>
+  );
+});
 
 export default DialogsPage;
+
+
 
 

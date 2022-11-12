@@ -11,12 +11,16 @@ import { getisSetDate } from '../../../redux/profile-selectors';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { actions } from '../../../redux/profile_reducer';
+import { useNavigate } from 'react-router-dom';
 
 
 
 const ProfileInfo: React.FC<ProfilesType> = ({ profile, status, upDateStatuses, isOwner, savePhoto, saveProfile, isFecbg }) => {
+
   const isSetDate= useSelector(getisSetDate) ;
+  const history = useNavigate()
   const dispatch = useDispatch();
+
   if (!profile) {
     return <Preloader />
   }
@@ -37,33 +41,29 @@ const ProfileInfo: React.FC<ProfilesType> = ({ profile, status, upDateStatuses, 
   const closeEditMode = () => {
     dispatch(actions.closeEditForm(false)) 
   }
-  const preloader = () => {
-    if (isFecbg === true) {
-      return <Preloader />
-    }
+ 
+  const createChat = (userId: number) => {
+     history(`/dialogs/${userId}/`)
   }
+
   return (
     <div className={s.sectionInformation} >
       <div>
       <img alt='photos' src={profile.photos.large || userPhoto} className={s.mainPhoto} />
       <div className={s.containerFileGrid}>
         <div>
-          {
-             preloader()
-          }
-        {isOwner && <Input name='sdd' className={s.file}  type={'file'} onChange={mainPhotoSelect} />}
+        {isOwner ? <Input name='sdd' className={s.file}  type={'file'} onChange={mainPhotoSelect} />
+        : <div><Button onClick={() => createChat(profile.userId)}>Send Message</Button></div>}
         </div>
         <div>
-        {/* !isSetDate && */ isOwner && <div> <Button onClick={goToEditMode}>Edit information</Button></div>}
+        { isOwner && <div> <Button onClick={goToEditMode}>Edit information</Button></div>}
         </div>
       </div>
       </div>
       <div className={s.descri_pbloxk}>
-        <ProfileStatusWithHooks status={status} upDateStatuses={upDateStatuses} />
-        {   
-        isSetDate ?  <ProfileDataForm initialValues={profile}  isFecbg={isFecbg} onSubmit={getFormData} closeEditMode={closeEditMode} profile={profile} />
-          : <ProfileData  profile={profile} /* isOwner={isOwner} */ />}
-
+        <ProfileStatusWithHooks status={status} upDateStatuses={upDateStatuses}  isOwner={isOwner} />
+        {  isSetDate ?  <ProfileDataForm initialValues={profile}  isFecbg={isFecbg} onSubmit={getFormData} closeEditMode={closeEditMode} profile={profile} />
+          : <ProfileData  profile={profile}  />}
       </div>
     </div>
   )
@@ -72,8 +72,7 @@ const ProfileInfo: React.FC<ProfilesType> = ({ profile, status, upDateStatuses, 
 
 type ProfileDataType = {
   profile: ProfileType, 
-/*   isOwner: boolean, 
-  goToEditMode: () => void */
+
 }
 
 const ProfileData: React.FC<ProfileDataType> = ({ profile}) => {
@@ -88,9 +87,7 @@ const ProfileData: React.FC<ProfileDataType> = ({ profile}) => {
         <b>Looking a job:</b>  {profile.lookingForAJob === true ? 'yes' : 'no'}
       </div>
        }
-
       <div>
-     
         {profile.lookingForAJobDescription &&
           <div>
             <b>My profesion skils</b>: {profile.lookingForAJobDescription}
@@ -104,9 +101,10 @@ const ProfileData: React.FC<ProfileDataType> = ({ profile}) => {
         }
         {Object.keys(profile.contacts).map((key, id) => !profile.contacts[key as keyof ContactsType]) && 
         <div>
-          <b>Contacts</b>:
+         {Object.keys(profile.contacts).some(k => console.log(profile.contacts[k as keyof ContactsType] !== null) ) && <b>Contacts</b> } 
+         
           {Object.keys(profile.contacts).map((key, id) => {
-            return <Contact key={id + key} contactTitle={key} contactValua={profile.contacts[key  as keyof ContactsType]} />
+            return <Contact key={id + key} contactTitle={key} contactValua={profile.contacts[key as keyof ContactsType ]} />
           })}
         </div>
         }

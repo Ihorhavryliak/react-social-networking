@@ -1,5 +1,4 @@
 import ProfileInfo from './ProfileInfo/ProfileInfo';
-
 import { ProfileType } from '../../types/types';
 import Mypost from './Mypost/Mypost';
 
@@ -17,14 +16,14 @@ const Profile: React.FC<ProfilesType> = (props) => {
 
   return (
     <div >
-      <ProfileInfo profile={props.profile} 
-      savePhoto={props.savePhoto}
-       isOwner={props.isOwner} 
-       saveProfile={props.saveProfile}
-       isFecbg={props.isFecbg}
-      status={props.status} upDateStatuses={props.upDateStatuses}/>
-      <Mypost />
-  </div>
+      <ProfileInfo profile={props.profile}
+        savePhoto={props.savePhoto}
+        isOwner={props.isOwner}
+        saveProfile={props.saveProfile}
+        isFecbg={props.isFecbg}
+        status={props.status} upDateStatuses={props.upDateStatuses} />
+      {props.isOwner ? <Mypost /> : <div style={{ marginTop: '20px' }}>No any posts</div>}
+    </div>
   )
 }
 export default Profile

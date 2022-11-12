@@ -3,6 +3,7 @@ import styles from './users.module.css';
 import userPhoto from './../../assets/images/image-user.png'
 import { NavLink } from 'react-router-dom';
 import { UserType,  } from '../../types/types';
+import { Button } from 'antd';
 
 
 
@@ -12,39 +13,31 @@ type PropsType = {
   followingInProgres: Array<number>
   unfollow: (userId: number)=> void
   follow: (userId: number)=> void
+  createChat: (userId: number)=> void
 }
 
 
-const User: React.FC<PropsType> = ({users, followingInProgres, unfollow, follow}) => {
+
+const User: React.FC<PropsType> = ({users, followingInProgres, unfollow, follow, createChat}) => {
   return (
-       <div>
-          <span>
-            <div>
+            <div className={styles.oneUserSearch}>
               <NavLink to={'/profile/' + users.id}>
                 <img src={(users.photos.small !== null) ? users.photos.small : userPhoto} alt="got" className={styles.userPhoto} />
               </NavLink>
-            </div>
-            <div>
+              <div className={styles.nameUser}>
+              <NavLink to={'/profile/' + users.id}>{users.name}</NavLink>   
+                </div>
+              <div className={styles.status}>{users.status} </div>
+              <div className={styles.sendMessage}>
               {users.followed
-                ? <button className={styles.buttonFollow} disabled={followingInProgres.some(id => id === users.id)} onClick={() => {
+                ? <Button className={styles.buttonFollow} disabled={followingInProgres.some(id => id === users.id)} onClick={() => {
                   unfollow(users.id)
-                }}>Unfollow</button>
-                : <button className={styles.buttonFollow} disabled={followingInProgres.some(id => id === users.id)} onClick={() => {
+                }}>Unfollow</Button>
+                : <Button className={styles.buttonFollow} disabled={followingInProgres.some(id => id === users.id)} onClick={() => {
                   follow(users.id)
-                }}>Follow</button>}
+                }}>Follow</Button>}
+                       <Button onClick={() => createChat(users.id)}>Send Message</Button></div>
             </div>
-          </span>
-          <span>
-            <span>
-              <div>{users.name}</div>
-              <div>{users.status}</div>
-            </span>
-            <span>
-              <div>{/* u.location.country */}</div>
-              <div>{/* u.location.city */}</div>
-            </span>
-          </span>
-        </div>
         )
 
 }

@@ -3,7 +3,7 @@ import { FormAction, stopSubmit } from "redux-form";
 import { profileAPI } from "../api/profile-api";
 import {  BaseThunkType, InfertActionsTypes } from './redux-store';
 import { actionsUserReducer } from './usere_reducer';
-import { includes } from 'lodash';
+
 
 let initialState = {
   postDate: [
@@ -77,7 +77,7 @@ export const saveProfile = (proFile: ProfileType): ThunkType => async (dispatch,
   /* dispatch(actionsUserReducer.toggleIsFerhing(true)); */
   let data = await profileAPI.savesFrofile(proFile);
 /*   dispatch(actionsUserReducer.toggleIsFerhing(false)); */
-debugger
+
   if (data.resultCode === 0) {
     if (userId !== null) {
       dispatch(getUserProfile(userId));

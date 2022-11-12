@@ -21,7 +21,7 @@ const AddNewPostForm: React.FC<InjectedFormProps<AddNewPostFormValuesType, Props
         {creatField<LoginFormValuesKeysTypeKeys>('Enter your messege', 'newPostText', [reqiaret,maxLenght10], Textarea)}
       </div>
       <div>
-        <button style={{float: 'right', marginTop: '15px'}} className="ant-btn ant-btn-default">Add post</button>
+        <button style={{float: 'right'}} className="ant-btn ant-btn-default">Add post</button>
       </div>
     </form>
   );

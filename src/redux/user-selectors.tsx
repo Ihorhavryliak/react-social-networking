@@ -35,6 +35,3 @@ export const getUsersFilter = (state: AppStateType) => {
   return state.userPage.filter
 };
 
-export const getDialogsPage = (state: AppStateType) => {
-  return state.dialogsPage
-};

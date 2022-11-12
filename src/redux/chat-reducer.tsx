@@ -16,7 +16,9 @@ const chatReducer = (state = initialState, action: ActionCreatsTypes): initialSt
     case "RSN/chat/MESSAGES_RECIVE":
       return {
         ...state,
-        message: [...state.message, ...action.payload.message.map(m => ({...m, id: v1()}))].filter( (m, index, arr) => index >= arr.length - 100)
+        message: [...state.message, 
+        ...action.payload.message.map(m => ({...m, id: v1()}))]
+       /*  .filter( (m, index, arr) => index >= arr.length - 100) */
       }
       case "RSN/chat/STATUS_CHANGE":
         return {

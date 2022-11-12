@@ -12,12 +12,13 @@ type UserPagePropsType = {
 }
 
 export const UserPage: React.FC<UserPagePropsType> = (props) => {
-  const isFeching = useSelector(getSsFeching)
+  document.title = props.pageTitle;
+  const isFeching = useSelector(getSsFeching);
   return (
     <>
-    <h2>{props.pageTitle}</h2>
-      {isFeching
+          {isFeching
         ? <Preloader /> : null}
+    <h2>{props.pageTitle}</h2>
       <Users />
     </>
   )

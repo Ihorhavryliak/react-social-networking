@@ -14,4 +14,8 @@
   border: 1px solid red;
   padding: 5px;
   color: brown;
+  margin-bottom: 5px;
+}
+.loginForm{
+  max-width: 400px;
 }

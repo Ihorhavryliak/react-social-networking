@@ -1,12 +1,19 @@
-.selectedPage{
-  font-weight: bold;
-}
 
 .paginator {
   margin: 10px;
 }
-
 .pageNumber {
   padding: 2px;
-  
+  border: 1px  solid #ddd;
+  border-right: none;
+  background-color: white;
+  padding: 6px 9px;
+}
+.pageNumber:hover {
+ background-color: rgb(49, 136, 208);
+ cursor: pointer; 
+}
+.selectedPage{
+  font-weight: bold;
+  background-color: rgb(49, 136, 208);
 }

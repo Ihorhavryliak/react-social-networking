@@ -1,12 +1,14 @@
 import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit'
 import authReducer from './auth-reducer';
-import dialogsReducer from './dialogs-reducer'
+
 import profileReducer from './profile_reducer'
 import slideBarReducer from './sidebar_block_reducer'
 import userReducer from './usere_reducer';
 import {reducer as formReducer} from 'redux-form'
 import appReudcer from './app-reducer';
 import chatReducer from './chat-reducer';
+import dialogReducer from './dialogs-reducer';
+
 
 
 
@@ -16,7 +18,6 @@ let store = configureStore({
        // @ts-ignore
       profilePage: profileReducer,
        // @ts-ignore
-      dialogsPage: dialogsReducer,
       sidebarBlockFrends: slideBarReducer,
      // @ts-ignore
       userPage: userReducer,
@@ -26,6 +27,8 @@ let store = configureStore({
       app: appReudcer,
       // @ts-ignore
       chat: chatReducer,
+          // @ts-ignore
+      dialogs: dialogReducer,
     }
 }
 );

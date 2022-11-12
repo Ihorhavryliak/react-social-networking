@@ -8,16 +8,157 @@
 .dialogs_items .active {
   color: gold;
 }
-.items{
- 
-}
+
 .messeges{
   padding: 10px;
-}
-.messege{
-  
 }
 
 .imagess{
   max-width: 20px;
+}
+.sender {
+  float: right;
+  margin: 5px 7px;
+  width: 50%;
+  background: #cddc3961;
+  padding: 7px 10px;
+  border-radius: 17px 4px 17px 17px;
+}
+.user{
+  float: left;
+  margin: 5px 7px;
+  width: 50%;
+  background: #5b9fd542;
+  padding: 7px 10px;
+  border-radius: 17px 17px 17px 4px;
+}
+.userName {
+  position: relative;
+  top: -9px;
+  left: 5px;
+  font-weight: 600;
+  font-size: 15px;
+}
+.textMessage {
+  margin: 0px 3px;
+  font-size: 16px;
+}
+.searchSelectorRed {
+  color:  red;
+}
+.showSpam{
+  margin-top: 10px;
+  padding: 10px 7px;
+  border-top: 1px solid #eee;
+}
+
+.inputData {
+  padding: 4px 5px;
+  border-radius: 4px;
+  border-color: #eee;
+  margin-right: 10px;
+  margin-left: 10px;
+}
+.selectorSerchMessage{
+  padding: 6px 5px;
+  border-radius: 4px;
+  border-color: #eee;
+  cursor: pointer;
+}
+
+.buttonBack{
+  float: right;
+}
+
+.blockFilter{
+  padding: 10px 0 10px  5px;
+  margin-bottom: 0px;
+
+  border-top: 1px solid #ddd;
+  max-width: 800px;
+  margin-bottom: 5px;
+  background-color: rgba(255, 255, 255, 0.432);
+  border-radius: 4px  4px 0 0;
+}
+
+.blockListMessage {
+  width: 100%;
+  background-color: rgb(255, 255, 255);
+  padding: 20px 10px;
+  border-radius: 0px 0px 4px 4px;
+  display: inline-block;
+}
+
+/* dialogs page */
+.imgNoPhoto{
+  max-width: 100px;
+  border-radius: 50%;
+}
+
+.dialogs{
+  display: grid;
+  grid-template-columns: 1fr;
+  /* background-color: rgba(103, 154, 225, 0.15);
+  padding: 10px 0; */
+  border-radius: 4px;
+  grid-row-gap: 16px;
+}
+.dialogs_items{
+  padding: 10px;
+}
+.dialogs_items .active {
+  color: gold;
+}
+.blockListUserMasssage{
+  display: grid;
+  grid-template-columns:  minmax(100px, 110px) minmax(200px, 100px) minmax(100px, 200px);
+  padding: 10px 10px;
+  background-color: rgba(252, 252, 252, 0.879);
+  border-radius: 7px;
+}
+.userNameMessage, .newMessageCount{
+  display: grid;
+  align-items: center;
+}
+.newMessageCount{
+  color: rgb(0, 138, 192);
+
+}
+.dialogs :hover{
+  background-color: rgb(77, 187, 238);
+  color: #eee;
+  border-radius: 7px;
+}
+.refMessege{ 
+  float: left;
+}
+.textPage{
+  margin-right: 5px;
+}
+.scroolDialogs::-webkit-scrollbar {
+  display: none;
+}
+.blockDiaols{
+  max-width: 800px;
+}
+.blockSendMessage{
+  
+}
+.reciverTextName{
+  float: right;
+  font-size: 16px;
+  color: #051e3242;
+}
+h1{
+  position: relative;
+  margin-bottom: 15px;
+}
+.intiTlePhoto{
+ max-width: 30px;
+ border-radius: 50px;
+}
+.fomErrorMessage{
+  color: red;
+  margin-bottom: 8px;
+  
 }

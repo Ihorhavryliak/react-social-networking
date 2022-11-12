@@ -8,7 +8,7 @@ import { FormAction } from 'redux-form';
 
 let initialState = {
   users: [] as Array<UserType>,
-  pageSize: 10,
+  pageSize: 12,
   totalUserCount: 0,
   curruntPage: 1,
   isFeching: false,
@@ -19,19 +19,14 @@ let initialState = {
   },
 }
 
-
-
 const userReducer = (state = initialState, action: ActionTypes): InitialStateType => {
   switch (action.type) {
     case 'RS/USER/FOLLOW':
-
       return {
         ...state,
         users: updateObjectArr(state.users, action.userId, 'id', { followed: true })
       }
-
     case 'RS/USER/UNFFOLOW':
-
       return {
         ...state,
         users: updateObjectArr(state.users, action.userId, 'id', { followed: false })
@@ -67,7 +62,6 @@ const userReducer = (state = initialState, action: ActionTypes): InitialStateTyp
 }
 
 
-
 export const actionsUserReducer = {
   followedSuccess: (userId: number) => ({ type: 'RS/USER/FOLLOW', userId } as const),
   unfollowSuccess: (userId: number) => ({ type: 'RS/USER/UNFFOLOW', userId } as const),
@@ -80,16 +74,15 @@ export const actionsUserReducer = {
 }
 
 
-
 export const reqestUser = (page: number, pageSize: number, filter: FilterType): ThunkType => {
   return async (dispatch) => {
     dispatch(actionsUserReducer.toggleIsFerhing(true));
     dispatch(actionsUserReducer.setCurrentPage(page));
     dispatch(actionsUserReducer.setFilter(filter));
     let data = await usersAPI.getUser(page, pageSize, filter.term, filter.friend);
-    dispatch(actionsUserReducer.toggleIsFerhing(false));
     dispatch(actionsUserReducer.setUser(data.items));
     dispatch(actionsUserReducer.setUserTotalCount(data.totalCount));
+    dispatch(actionsUserReducer.toggleIsFerhing(false));
   }
 }
 

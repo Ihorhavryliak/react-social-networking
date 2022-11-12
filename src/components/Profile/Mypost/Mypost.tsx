@@ -14,7 +14,7 @@ export const maxLenght10 = maxLengthCreator(65);
 
 
 
-const Mypost: React.FC = React.memo(props => {
+const Mypost: React.FC = React.memo( (props) => {
   const postDate = useSelector(getPostDate);
   const dispatch = useDispatch();
   let copyPostDate = [...postDate];

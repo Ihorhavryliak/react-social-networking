@@ -1,26 +1,24 @@
+import { Button } from 'antd';
 import { Field, Form, Formik } from 'formik';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { getUsersFilter } from '../../redux/user-selectors';
 import { FilterType } from '../../redux/usere_reducer';
+import s from '../Users/users.module.css'
+type  ValuesType = {
+  term?: string
+  friend?: string
+}
+const userSearchFormValidate = (values: ValuesType) => {
 
+  const errors: ValuesType = {};
+/*   if (!values.term) {
+    errors.term = 'Required';
+  }  */
 
-
-const userSearchFormValidate = (values: any) => {
-  const errors = {};
   return errors;
 };
 
-type PropsType = {
-  onFilterChange: (fitler: FilterType) => void
-}
-
-type FriendFormType = 'true' | 'false' | 'null';
-
-type FormType =  {
-  term: string,
-  friend: FriendFormType
-}
 
 export const UserSearchForm: React.FC<PropsType> = React.memo((props) => {
 
@@ -45,16 +43,21 @@ export const UserSearchForm: React.FC<PropsType> = React.memo((props) => {
         validate={userSearchFormValidate}
         onSubmit={sumbit}
       >
-        {({ isSubmitting }) => (
+        {({ isSubmitting, errors }) => (
           <Form>
-            <Field type="text" name="term" />
-            <Field name="friend" as="select">
+            <div className={s.errorField}>
+            <Field type="text" placeholder='Enter a user name' className={s.searchFormUser} name="term" />
+            {errors.term  ? (
+             <span className={s.errorFiledMessage}>{errors.term}</span>
+           ) : null}
+           </div>
+            <Field className={s.searchFormUser} name="friend" as="select">
               <option value="null">All</option>
               <option value="true">Only followed</option>
               <option value="false">Only unfollowed</option>
             </Field>
-            <button type="submit" disabled={isSubmitting}>
-              Find
+            <button className="ant-btn ant-btn-default users_buttonFollow__6VvmC" disabled={isSubmitting}>
+              Search
             </button>
           </Form>
         )}
@@ -63,3 +66,15 @@ export const UserSearchForm: React.FC<PropsType> = React.memo((props) => {
   );
 });
 
+
+//type ---
+type PropsType = {
+  onFilterChange: (fitler: FilterType) => void
+}
+
+type FriendFormType = 'true' | 'false' | 'null';
+
+type FormType =  {
+  term: string,
+  friend: FriendFormType
+}

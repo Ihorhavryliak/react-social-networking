@@ -8,6 +8,7 @@ import style from './../Common/Preloader/FormControl/FormsControl.module.css'
 import { AppDispatch, AppStateType } from '../../redux/redux-store';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
+import { Button } from 'antd';
 
 type LoginFormOwnPropsType = {
   capcahUrl: string | null
@@ -16,7 +17,7 @@ type LoginFormOwnPropsType = {
 const LoginForm: React.FC<InjectedFormProps<LoginFormValuesType, LoginFormOwnPropsType> & LoginFormOwnPropsType> = ({ handleSubmit, error, capcahUrl }) => {
 
   return (
-    <form onSubmit={handleSubmit} >
+    <form onSubmit={handleSubmit} className={style.loginForm} >
       {creatField<LoginFormValuesKeysType>('Email', 'email', [reqiaret], Input)}
       {creatField<LoginFormValuesKeysType>('Password', 'password', [reqiaret], Input, { type: 'password' })}
       {creatField<LoginFormValuesKeysType>(undefined, 'remeberMe', [], Input, { type: 'checkbox' }, 'Remember me')}
@@ -25,7 +26,7 @@ const LoginForm: React.FC<InjectedFormProps<LoginFormValuesType, LoginFormOwnPro
       {capcahUrl && creatField('Symbols from inage', 'captcha', [reqiaret], Input, {})}
 
       {error && <div className={style.formSUmmeryError}>{error}</div>}
-      <div><button>Login</button></div>
+      <div><button className='ant-btn ant-btn-default'>Login</button></div>
     </form>
   )
 }

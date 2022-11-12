@@ -2,12 +2,14 @@ import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import {   useLocation, useNavigate } from 'react-router-dom';
+import { createDiologs } from '../../redux/dialogs-reducer';
 import { AppDispatch } from '../../redux/redux-store';
 import { getCurruntPage, getFollowingInProgres, getPageSize, getTotalUserCount, getUsersFilter, getUsersSelectorSuper } from '../../redux/user-selectors';
 import { FilterType, follows, reqestUser, unfollows } from '../../redux/usere_reducer';
 import Paginator from '../Common/Paginator/Paginator';
 import User from './User';
 import { UserSearchForm } from './UserSearchForm';
+import s from '../Users/users.module.css'
 type QueryParamsType = {
   term?: string;
   page?: string;
@@ -60,10 +62,7 @@ export const Users: React.FC<UsersType> = (props) => {
 
   const history = useNavigate();
   useEffect(() => {
-
     const query:QueryParamsType = {};
-  
-
     if (!!filter.term) {query.term = filter.term};
     if (filter.friend !== null) {query.friend = String(filter.friend)};
     if (curruntPage !== 1) {query.page = String(curruntPage)};
@@ -88,20 +87,23 @@ export const Users: React.FC<UsersType> = (props) => {
   const follow = (userId: number) => {
     dispatch(follows(userId));
   }
-
+  const createChat = (friendId: number) => {
+    dispatch(createDiologs(friendId))
+    return history(`/dialogs/${friendId}/`)
+  }
   return (
     <div>
       <UserSearchForm onFilterChange={onFilterChange} />
-      <Paginator curruntPage={curruntPage} pageSize={pageSize}
-        onPageChange={onPageChange} totalUserCount={totalUserCount} />
-      <div>
+      <div className={s.blockUsersList}>
         {
           users.map(u => <User users={u} key={u.id}
-            followingInProgres={followingInProgres} unfollow={unfollow} follow={follow} />
+            followingInProgres={followingInProgres} unfollow={unfollow} follow={follow} createChat={createChat} />
           )
         }
+        {users.length === 0 && 'No users found'}
       </div>
-
+      <Paginator curruntPage={curruntPage} pageSize={pageSize}
+        onPageChange={onPageChange} totalUserCount={totalUserCount} />
     </div>
   )
 }

@@ -2,8 +2,8 @@ import { FormAction, stopSubmit } from "redux-form";
 import { ResultCodeEnum,  ResultCodeForCaptchaEnum} from "../api/api";
 import { authAPI } from "../api/auth-api";
 import { securytyCapchaApi } from "../api/securyty-capcha-api";
+import { messegeDisCount } from "./dialogs-reducer";
 import {BaseThunkType, InfertActionsTypes } from "./redux-store";
-
 
 let initialState = {
   userId: null as null| number,
@@ -28,24 +28,24 @@ const authReducer = (state = initialState, action: ActionCreatsTypes): initialSt
 
 }
 // action
-
-
 export const actions = {
   setAuthUserData: (userId: number | null, email: string | null, login: string | null, isAuth: boolean) => 
   ({type: 'RSN/auth/SET_USER_DATE', payload: { userId, email, login, isAuth }} as const),
   getCapchaUrlSuccess: (capcahUrl: string) => ({type: 'RSN/auth/GET_CAPTHA_URLL_SUCCESS', payload: {capcahUrl}} as const) 
 }
-
-
 //thunk
-
 export const getAutUserDate = (): ThunkType => async (dispatch) => {
+try{
   let meData = await authAPI.me();
   if (meData.resultCode === ResultCodeEnum.Sucsses) {
     let { id, login, email } = meData.data;
     dispatch(actions.setAuthUserData(id, login, email, true));
   }
-
+  dispatch(messegeDisCount());
+} catch (error: any) {
+  dispatch(actions.setAuthUserData(null, null, null, true));
+  alert('Reload The Page Please. ' +  error.request.response + ' ' + error) ;
+}
 }
 
 export const getCapchaUrl = (): ThunkType => async (dispatch) => {
@@ -65,7 +65,6 @@ export const login = (email: string, password: string, remeberMe: boolean, captc
       dispatch(getCapchaUrl());
     }
     let messege = data.messages.length > 0 ? data.messages[0] : 'Some Error';
- 
     dispatch(stopSubmit('login', { _error: messege }));
   }
 
@@ -78,7 +77,7 @@ export const logOut = (): ThunkType => async (dispatch) => {
   }
 
 }
-//export reducer
+
 export default authReducer;
 
 export type initialStateType = typeof initialState 

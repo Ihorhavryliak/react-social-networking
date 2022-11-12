@@ -10,6 +10,7 @@ import style from './ProfileInfo.module.css';
 type ProfileStatusWithHooksType = {
   status: string
   upDateStatuses: (status: string) => void
+  isOwner: boolean
 }
 
 
@@ -19,7 +20,7 @@ const ProfileStatusWithHooks: React.FC<ProfileStatusWithHooksType> = (props) => 
 
   let [editMode, setEditMode] = useState<boolean>(false);
   let [statuse, setStatus] = useState<string>(status);
-  
+
   useEffect(() => {
     setStatus(status);
   }, [status])
@@ -29,29 +30,31 @@ const ProfileStatusWithHooks: React.FC<ProfileStatusWithHooksType> = (props) => 
     setEditMode(true);
   };
 
-  let deActivateAditMod = () => {
-   setEditMode(false);
-   dispatch(upDateStatuses(statuse));
+  const deActivateAditMod = () => {
+    setEditMode(false);
+    dispatch(upDateStatuses(statuse));
   };
 
-  const onStatusChange = (e: React.FormEvent<HTMLInputElement> ) => {
+  const onStatusChange = (e: React.FormEvent<HTMLInputElement>) => {
     setStatus(e.currentTarget.value);
-}
+  }
 
   return (
-    
+
     <div>
+
       {!editMode &&
         <div className={style.status}>
-       {/* <span className={style.statusName}> <b>Status</b>:</span> */}<span>   <Input className={style.fieldStatus} value={status || '----' } onClick={activateMode} /></span>
+          {/* <span className={style.statusName}> <b>Status</b>:</span> */} <span>   <Input disabled={!props.isOwner}  className={style.fieldStatus} value={status || '----'} onClick={activateMode} /></span>
         </div>
       }
       {editMode &&
         <div className={style.status}>
-       {/* <span className={style.statusName}> <b>Status</b>:</span> */}<span>   <Input className={style.fieldStatus} onChange={onStatusChange} autoFocus={true} onBlur={deActivateAditMod}
+          {/* <span className={style.statusName}> <b>Status</b>:</span> */}<span>   <Input className={style.fieldStatus} onChange={onStatusChange} autoFocus={true} onBlur={deActivateAditMod}
             value={statuse} /></span>
         </div>
       }
+
     </div>
   )
 

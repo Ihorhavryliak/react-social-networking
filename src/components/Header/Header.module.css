@@ -1,17 +1,14 @@
 
-.header{
-  grid-area: h;
-  background-color: rgb(145, 122, 122);
+.userHeaderPhoto{
+  border-radius: 50px;
+  width: 30px;
 }
-.header img {
-  width: 20px;
-}
-.item{
-  color:  red;
-}
-.loginBlock{
-  float: right;
-}
-.loginBlock a{
-  color: white;
+.textLogin{
+  max-width: 150px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: inline-block;
+  float: left;
+  margin-right: 7px;
 }
