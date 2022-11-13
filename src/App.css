@@ -1,3 +1,44 @@
+/* slideabr */
+.site-layout-background{
+  background-color: #eee;
+
+}
+.blockNavlink{
+
+  display: grid !important;
+  grid-template-columns: 200px;
+  grid-gap: 5px;
+ margin-top: 15px;
+}
+.ant-layout-sider{
+  background-color: #eee !important;
+
+}
+.ant-layout-sider-children{
+
+}
+.nalinkList{
+  padding: 15px 0px 15px 20px;
+}
+.linkNav{
+  color: #000;
+}
+.linkNav :hover {
+background-color: #e6f7ff;
+}
+.navActive{
+  background-color: #e6f7ff;
+  color: #1890ff;
+}
+.linkIcon{
+  margin-right: 5px;
+}
+.ant-layout{
+  height: 100%;
+}
+.ant-layout-footer{
+  background: #5d7b9824 !important;
+}
 /* main */
 *  
     { 

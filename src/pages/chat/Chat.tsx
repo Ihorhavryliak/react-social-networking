@@ -12,7 +12,7 @@ export const Chat: React.FC = () => {
 
   const dispatch: AppDispatch = useDispatch();
   const status = useSelector((state: AppStateType) => state.chat.status);
-
+  const messege = useSelector((state: AppStateType) => state.chat.message);
 
 
   useEffect(() => {

@@ -8,7 +8,7 @@ const subscrubers = {
 let ws: WebSocket | null = null;
 
 const closeHandle = () =>{
-    notifaSubscribesAboutStatus('pending');
+  notifaSubscribesAboutStatus('pending');
   setTimeout(createChanel, 3000);
   };
 

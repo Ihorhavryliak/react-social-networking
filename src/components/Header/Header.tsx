@@ -52,6 +52,9 @@ const Headers: React.FC<MapPropsType> = (props) => {
     }
   }
 
+  if (mePhoto === undefined) {
+    mePhoto = noPhoto
+  }
   return (
     <Header className="header" style={{ background: '#5d7b98' }}>
       <div className="logo" />

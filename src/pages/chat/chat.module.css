@@ -40,7 +40,7 @@
 
 }
 .blockChat{
-  max-width: 800px;
+  
   background-color: rgb(255, 255, 255);
   padding: 20px 10px;
   border-radius: 0px 0px 4px 4px;
@@ -55,4 +55,7 @@ float: left;
 }
 .scroolChat::-webkit-scrollbar {
   display: none;
+}
+.mainChatContainer{
+  max-width: 800px;
 }

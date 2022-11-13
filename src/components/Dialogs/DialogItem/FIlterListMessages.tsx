@@ -13,6 +13,7 @@ type FIlterListMessagesType = {
 }
 
 export const FIlterListMessages: React.FC<FIlterListMessagesType> = React.memo((props) => {
+  
   const { friendId, searchStrCountPage, setCurrentPage} = props;
   const navigate = useNavigate();
   const dispatch: AppDispatch = useDispatch();

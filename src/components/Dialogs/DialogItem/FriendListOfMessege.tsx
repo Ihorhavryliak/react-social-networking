@@ -3,8 +3,8 @@ import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import { getAllDialogs, getCountPage, getFrendMesseges, getItems, getMyId, getMyPhoto, getSaveFilterPage, getSaveUserPhotosArr, } from "../../../redux/dialog-selector";
-import { deleteMyMessage, messegeDisCount, reciveDataMessege, restorMessage, sentFriendMesege, setDialog, setItemFriendMessages, spamSendMessage } from "../../../redux/dialogs-reducer";
+import { getAllDialogs, getCountPage, getFrendMesseges, getMyId, getSaveFilterPage, getSaveUserPhotosArr, } from "../../../redux/dialog-selector";
+import { messegeDisCount, sentFriendMesege, setDialog, setItemFriendMessages } from "../../../redux/dialogs-reducer";
 import { getUserProfile } from "../../../redux/profile_reducer";
 import { AppDispatch } from "../../../redux/redux-store";
 import { getSsFeching } from "../../../redux/user-selectors";
@@ -12,26 +12,26 @@ import Preloader from "../../Common/Preloader/Preloader";
 import { FriendMessageForm } from "../AddMessegeForm/FriendMessageForm";
 import styles from './../Dialogs.module.css'
 import PaginatorModern from "./PaginatorModern";
-import notPhoto from '../../../assets/images/image-user.png'
 import { FIlterListMessages } from "./FIlterListMessages";
+import { UserFriendMessages } from "./UserFriendMessages";
+import { InformTextHOne } from "./InformTextHOne";
 
 const FriendListOfMessege = React.memo(() => {
 
   const title = 'Messages';
   document.title = title;
-
   const dispatch: AppDispatch = useDispatch();
   const bodyMessege = useSelector(getFrendMesseges);
   const dialogs = useSelector(getAllDialogs);
-  const myPhoto = useSelector(getMyPhoto);
   const myId = useSelector(getMyId);
   const isDialogsLoads = useSelector(getSsFeching);
   const pageCount = useSelector(getCountPage);
   const [isRestore, setIsRestore] = useState(false);
   const [isRestoreSpam, setIsRestoreSpam] = useState(false);
   const SaveFilterPage = useSelector(getSaveFilterPage);
-  const dialogsItems = useSelector(getItems);
-  const saveUserPhotosArr  = useSelector(getSaveUserPhotosArr)
+  const saveUserPhotosArr = useSelector(getSaveUserPhotosArr);
+  const messegAncorRef = useRef<HTMLDivElement>(null);
+  const [scrollSend, setScrollSend] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   let friendId = '';
@@ -40,7 +40,6 @@ const FriendListOfMessege = React.memo(() => {
       friendId += location.pathname[i];
     }
   }
-
   let pageGetNumber = 0;
   let selectPages = 0;
   if (SaveFilterPage.some(m => m.id === +friendId)) {
@@ -53,7 +52,6 @@ const FriendListOfMessege = React.memo(() => {
     pageGetNumber = SaveFilterPage.filter(n => n.id === 0)[0].pageNumber;
     selectPages = SaveFilterPage.filter(n => n.id === 0)[0].selectPage;
   }
-
   const [pageNumber, setPageNumber] = useState(pageGetNumber);
   const [searchStr, setSearchStr] = useState({ countPage: selectPages });
 
@@ -80,13 +78,11 @@ const FriendListOfMessege = React.memo(() => {
   }, []);
 
   useEffect(() => {
-
     if (pageNumber === 0) {
       dispatch(setItemFriendMessages(+friendId, 1, searchStr.countPage));
     } else {
       dispatch(setItemFriendMessages(+friendId, pageNumber, searchStr.countPage));
     }
-
     return () => { setIsRestore(false); setIsRestoreSpam(false); }
   }, [isRestore, isRestoreSpam, pageNumber, searchStr.countPage]);
 
@@ -96,41 +92,6 @@ const FriendListOfMessege = React.memo(() => {
     }, 1000)
   }, []);
 
-  const sendFriednMeesege = (friendId: number, messege: string) => {
-    setPageNumber(0)
-    setTimeout(() => {
-      setScrollSend(true);
-    }, 300);
-    dispatch(sentFriendMesege(friendId, messege))
-  }
-  const deleteMyMessages = (messageId: string) => {
-    dispatch(deleteMyMessage(messageId));
-    setTimeout(() => {
-      setIsRestoreSpam(true)
-    }, 1500)
-  }
-  const spam = (id: string) => {
-    dispatch(spamSendMessage(id));
-    setIsRestoreSpam(true)
-  }
-
-  const onRestorMessage = (messageId: string) => {
-    dispatch(restorMessage(messageId));
-  }
-  let photo: any;
-  if (bodyMessege.length > 0) {
-    photo = dialogs.filter(ob => ob.id === +friendId)[0];
-    if (photo && photo.photos?.small !== undefined) {
-      photo = photo.photos?.small
-    } else {
-      photo = notPhoto;
-    }
-  }
-  const messegAncorRef = useRef<HTMLDivElement>(null);
-  const scrollToBottom = () => {
-    messegAncorRef.current?.scrollIntoView({ behavior: "smooth" })
-  }
-  const [scrollSend, setScrollSend] = useState(false);
   useEffect(() => {
     setTimeout(() => {
       scrollToBottom()
@@ -142,101 +103,42 @@ const FriendListOfMessege = React.memo(() => {
     setPageNumber(1)
     setSearchStr({ ...searchStr, countPage: +e })
   }
+
   useEffect(() => {
     if (bodyMessege.length === 0 && pageNumber !== 1) {
       setPageNumber(pageGetNumber - 1)
     }
   }, [bodyMessege])
 
-let recivePhoto;
-if( !dialogs.some(f => f.id === +friendId )) {
-  const getObj = saveUserPhotosArr.filter(m => m.id === +friendId)
-  if (getObj.length > 0 && getObj[0].photo !== null) {
-    recivePhoto = getObj[0].photo
-  } else {
-     recivePhoto = notPhoto
-  }
-} else {
-  if (dialogs.length > 0) {
-    let obgUserReciver = dialogs.filter(f => f.id === +friendId);
-    if (obgUserReciver.length > 0 && obgUserReciver[0].photos?.small !== null) {
-      recivePhoto = obgUserReciver[0].photos?.small
-    }
-  } 
-}
-  
-
-
-  let reciveName;
-  if( !dialogs.some(f => f.id === +friendId ) ) {
-    debugger
-    const getObj = saveUserPhotosArr.filter(m => m.id === +friendId)
-    if (getObj.length > 0 ) {
-      reciveName = getObj[0].name
-    } else {
-      reciveName = 'User'
-    }
-  } else {
-    if(dialogs.length > 0) {
-      let obgUserReciver = dialogs.filter(f => f.id === +friendId);
-      if(obgUserReciver.length > 0 && obgUserReciver[0] !== undefined ){
-        reciveName = obgUserReciver[0].userName;
-      }else {
-        reciveName = 'User'
-      }
-    } 
-  
+  const sendFriednMeesege = (friendId: number, messege: string) => {
+    setPageNumber(0)
+    setTimeout(() => {
+      setScrollSend(true);
+    }, 300);
+    dispatch(sentFriendMesege(friendId, messege))
   }
 
-  
-
-  let notPhotoTwo: any;
-  if (myPhoto === null || myPhoto === undefined) {
-    notPhotoTwo = notPhoto
-  } else {
-    notPhotoTwo = myPhoto
+  const scrollToBottom = () => {
+    messegAncorRef.current?.scrollIntoView({ behavior: "smooth" })
   }
 
   return (
     <>
       {isDialogsLoads && <Preloader />}
       <div className={styles.blockDiaols}>
-        <h1> {title}  <span className={styles.reciverTextName}>send to: {reciveName} <img className={styles.intiTlePhoto} src={recivePhoto === undefined ? notPhoto  : recivePhoto } alt="recivePhoto" /></span> </h1>
-          <FIlterListMessages setCurrentPage={setCurrentPage}  friendId={friendId}  searchStrCountPage = {searchStr.countPage}/>
+        <InformTextHOne dialogs={dialogs} friendId={friendId} saveUserPhotosArr={saveUserPhotosArr} title={title} />
+        <FIlterListMessages setCurrentPage={setCurrentPage} friendId={friendId} searchStrCountPage={searchStr.countPage} />
         <div>
+        {bodyMessege.length > 0 &&
           <PaginatorModern itemsPerPage={searchStr.countPage} total_count={pageCount} setCurrentPage={setPageNumber} currentPage={pageNumber} />
-        </div>
+        }
+          </div>
         <div className={styles.blockListMessage}  >
           <div className={styles.scroolDialogs} style={{ maxHeight: '450px', overflowY: 'auto' }}  >
-            {bodyMessege.length > 0 ? bodyMessege.map((m, i) => {
-              return (
-                <div key={m.id} className={+friendId === m.senderId ? styles.sender : styles.user} >
-                  <div>
-                      <img style={{ maxWidth: '40px', borderRadius: '50px' }} 
-                      src={+friendId === m.senderId ? photo  : notPhotoTwo} 
-                      alt="photosfd" />
-
-                    <span className={styles.userName}>{m.senderName}</span>
-                    <span style={{ float: 'right' }}>{m.addedAt}</span>
-                  </div>
-                  {m.body.includes('<br />') ? m.body.split('<br />').map((v, i) => <span key={v + i} className={styles.textMessage}>{v}<br /></span>)
-                    : <span className={styles.textMessage}>{m.body}</span>}
-                  <div>
-                    {m.translatedBody === true &&
-                      <button style={{ float: 'right' }} className="ant-btn ant-btn-default" onClick={() => onRestorMessage(m.id)}>Restore</button>}
-                    {m.translatedBody === null &&
-                      <button style={{ float: 'right' }} className="ant-btn ant-btn-default" onClick={() => deleteMyMessages(m.id)}>Delete</button>
-                    }
-                  </div>
-                  {myId === m.senderId &&
-                    <span>{m.viewed ? 'Reviewed' : ''}</span>
-                  }
-                  {myId !== m.senderId &&
-                    <button style={{ float: 'right' }} className="ant-btn ant-btn-default" onClick={() => spam(m.id)}>spam</button>
-                  }
-                </div>
-              )
-            })
+            {bodyMessege.length > 0 ? bodyMessege.map((m, i) => <UserFriendMessages key={m.id}
+              friendId={friendId} m={m} bodyMessege={bodyMessege} dialogs={dialogs}
+              setIsRestoreSpam={setIsRestoreSpam} myId={myId}
+            />)
               : <div>No message</div>
             }
             <div className={styles.refMessege} ref={messegAncorRef}></div>

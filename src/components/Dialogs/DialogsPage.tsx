@@ -27,7 +27,7 @@ export const DialogsPage = React.memo(() => {
     <div className={se.dialogs}>
       {userId.length > 0 ? userId.map(d => {
         return (
-          <ListDialogsPage d={d} />
+          <ListDialogsPage d={d} key={d.id} />
         )
       })
     : <>No any message</>

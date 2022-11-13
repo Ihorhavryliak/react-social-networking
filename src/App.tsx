@@ -1,26 +1,28 @@
 import './App.css';
-import { NavLink } from 'react-router-dom';
-import React from 'react';
+import { NavLink, useLocation } from 'react-router-dom';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import withRouter from './hoc/withProfileUrl';
 import { compose } from 'redux';
 import { initilizeAPP } from './redux/app-reducer';
 import Preloader from './components/Common/Preloader/Preloader';
-import { AppStateType } from './redux/redux-store';
+import { AppDispatch, AppStateType } from './redux/redux-store';
 import 'antd/dist/antd.min.css';
-import { UserOutlined, SoundOutlined, TeamOutlined, MailOutlined, UserSwitchOutlined, ScheduleOutlined } from '@ant-design/icons';
-import { Breadcrumb, Layout, Menu } from 'antd';
+import { UserOutlined, SoundOutlined, TeamOutlined, MailOutlined } from '@ant-design/icons';
+import { Layout, Menu } from 'antd';
 import Headers from './components/Header/Header';
 import { AppRouter } from './AppRouter';
 import { FooterBlock } from './components/FooterBlock';
-
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import './App.css';
 
 export const ChatPage = React.lazy(() => import('./pages/chat/ChatPage'));
 export const DialogsPage = React.lazy(() => import('./components/Dialogs/DialogsPage'));
 export const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'));
 
 
-const { Header, Content, Sider, Footer } = Layout;
+const { Content, Sider } = Layout;
 
 /*  // caath error all full sites
 cathUnhandleError = (promiseReject) => {
@@ -35,64 +37,58 @@ componentWillUnmount () {
 }
  */
 
-type MapPropsType = ReturnType<typeof mapStateToProps>;
+
 type DispatchPropsType = {
-  initilizeAPP: () => void
+
 }
 
-class App extends React.Component<MapPropsType & DispatchPropsType> {
+const App: React.FC<DispatchPropsType> = (props) => {
 
-  componentDidMount() {
-    this.props.initilizeAPP()
-  }
+  const initial = useSelector((state: AppStateType) => state.app.initial);
+  const dispatch: AppDispatch = useDispatch();
+  const location = useLocation();
+  console.log(location.pathname);
 
-  render() {
-    if (!this.props.initial) {
-      return <Preloader />
+  let urlPage = '';
+  for (let i = 1; i < location.pathname.length; i++) {
+    if (location.pathname[i] === '/' ||  location.pathname[i] ===  '?') {
+      break
+    } else {
+      urlPage += location.pathname[i]
     }
-    return (
+  }
+  console.log(urlPage)
+  useEffect(() => {
+    dispatch(initilizeAPP())
+  }, [])
+
+  return (<>
+    {!initial && <Preloader />}
+    <Layout>
+      <Headers />
       <Layout>
-        <Headers />
-        <Layout>
-          <Sider width={200} className="site-layout-background">
-            <Menu
-              mode="inline"
-              style={{
-                height: '100%',
-                borderRight: 0,
-              }}
-              items={
-                [
-                  {
-                    label: '', key: '1', type: 'group',
-                    children: [{ label: <NavLink to="/profile">Profile</NavLink>, key: '2', icon: <UserOutlined /> },
-                    { label: <NavLink to="/dialogs">Message</NavLink>, key: '3', icon: <MailOutlined /> },
-                    { label: <NavLink to="/users">Users</NavLink>, key: '4', icon: <TeamOutlined /> },
-                    { label: <NavLink to="/chat">Shared chat</NavLink>, key: '4.1', icon: <SoundOutlined /> },
-
-                    ],
-
-                  },
-
-                  /*     {
-                        label: 'Under development', key: '5', icon: <ScheduleOutlined />,
-                        children: [{ label: <NavLink to="/news">News</NavLink>, key: '6', icon: null },
-                        { label: <NavLink to="/music">Music</NavLink>, key: '7', icon: null },
-                        { label: <NavLink to="/setting">Settings</NavLink>, key: '8', icon: null },
-                        ],
-    
-                      }, */
-                ]
-              }
-            />
-
-          </Sider>
-          <Layout
-            style={{
-              padding: '0 24px 24px',
-            }}
-          >
-            {/* <Breadcrumb
+        <Sider width={200} className="site-layout-background">
+          <div className='blockNavlink'>
+            <NavLink className="linkNav" to="/profile">
+              <div className={urlPage === 'profile' ? 'navActive nalinkList' : 'nalinkList'} >
+               <span className='linkIcon'><UserOutlined /></span>  Profile </div></NavLink>
+            <NavLink className="linkNav" to="/dialogs">
+              <div className={urlPage === 'dialogs' ? 'navActive nalinkList' : 'nalinkList'}>
+              <span className='linkIcon'><MailOutlined /></span>Message   </div></NavLink>
+            <NavLink className="linkNav" to="/users">
+              <div className={urlPage === 'users' ? 'navActive nalinkList' : 'nalinkList'}>
+              <span className='linkIcon'><TeamOutlined /></span>Users   </div></NavLink>
+            <NavLink className="linkNav" to="/chat">
+              <div className={urlPage === 'chat' ? 'navActive nalinkList' : 'nalinkList'}>
+              <span className='linkIcon'><SoundOutlined /></span>Shared chat   </div></NavLink>
+          </div>
+        </Sider>
+        <Layout
+          style={{
+            padding: '0 24px 24px',
+          }}
+        >
+          {/* <Breadcrumb
               style={{
                 margin: '16px 0',
               }}
@@ -101,29 +97,27 @@ class App extends React.Component<MapPropsType & DispatchPropsType> {
               <Breadcrumb.Item>List</Breadcrumb.Item>
               <Breadcrumb.Item>App</Breadcrumb.Item>
             </Breadcrumb> */}
-            <Content
-              className="site-layout-background"
-              style={{
-                padding: 24,
-                margin: 0,
-                minHeight: 280,
-              }}
-            >
-              <AppRouter />
-            </Content>
-            <FooterBlock />
-          </Layout>
+          <Content
+            className="site-layout-background"
+            style={{
+              padding: 24,
+              margin: 0,
+              minHeight: 280,
+            }}
+          >
+            <AppRouter />
+          </Content>
+          <FooterBlock />
         </Layout>
       </Layout>
-    )
-  }
+    </Layout>
+  </>
+  )
 }
 
-const mapStateToProps = (state: AppStateType) => ({
-  initial: state.app.initial,
-})
-export default compose<React.ComponentType>(
-  withRouter,
-  connect(mapStateToProps, { initilizeAPP }))(App);
+
+
+export default App
+
 
 

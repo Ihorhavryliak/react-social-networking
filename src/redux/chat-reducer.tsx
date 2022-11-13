@@ -13,6 +13,7 @@ let initialState = {
 const chatReducer = (state = initialState, action: ActionCreatsTypes): initialStateType => {
   switch (action.type) {
     case "RSN/chat/MESSAGES_RECIVE":
+    
       return {
         ...state,
         message: [...state.message,
@@ -24,16 +25,20 @@ const chatReducer = (state = initialState, action: ActionCreatsTypes): initialSt
         ...state,
         status: action.payload.status
       }
+      case 'RSN/chat/RESTORE_CHAT':
+        return {
+          ...state,
+          message: []
+        }
     default:
       return state;
   }
 }
 // action
 export const actions = {
-  messageRecive: (message: ChatMessaeAPIType[]) =>
-    ({ type: 'RSN/chat/MESSAGES_RECIVE', payload: { message } } as const),
-  statusChange: (status: StatusType) =>
-    ({ type: 'RSN/chat/STATUS_CHANGE', payload: { status } } as const),
+  messageRecive: (message: ChatMessaeAPIType[]) =>({ type: 'RSN/chat/MESSAGES_RECIVE', payload: { message } } as const),
+  statusChange: (status: StatusType) => ({ type: 'RSN/chat/STATUS_CHANGE', payload: { status } } as const),
+  restoreMessage:  () => ({ type: 'RSN/chat/RESTORE_CHAT' } as const),
 }
 
 //thunk
@@ -71,9 +76,10 @@ export const startMessageLisiner = (): ThunkType => async (dispatch) => {
 };
 
 export const stopMessageLisiner = (): ThunkType => async (dispatch) => {
+  chatAPI.stop();
+  dispatch(actions.restoreMessage())
   chatAPI.ussubscrube('message-reseve', newMassageHandleCreator(dispatch));
   chatAPI.ussubscrube('status-change', statusChangeCreator(dispatch));
-  chatAPI.stop();
 };
 export const sendMessege = (message: string): ThunkType => async (dispatch) => {
   try {

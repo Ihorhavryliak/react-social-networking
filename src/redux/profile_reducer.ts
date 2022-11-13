@@ -165,7 +165,7 @@ export default profileReducer;
 export type InitialStateType = typeof initialState
 type ActionCreatersTypes = InfertActionsTypes<typeof actions>
 type ThunkType = BaseThunkType<ActionCreatersTypes | FormAction>
-type UserPhotosType = {
+export type UserPhotosType = {
   id: number
   photo: string | null
   name: string | null

@@ -160,5 +160,7 @@ h1{
 .fomErrorMessage{
   color: red;
   margin-bottom: 8px;
-  
+}
+.reciverNameTexts{
+  margin-right: 4px;
 }

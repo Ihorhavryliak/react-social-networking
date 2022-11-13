@@ -5,6 +5,7 @@ import { LoginPage } from "../../components/Login/LoginPage";
 import { getisAiuth } from "../../redux/chat-selector";
 import { getSsFeching } from "../../redux/user-selectors";
 import { Chat } from "./Chat"
+import s from '../chat/chat.module.css'
 
 const ChatPage: React.FC = () => {
   let title = 'Shared chat (web sockets)'
@@ -18,7 +19,7 @@ const ChatPage: React.FC = () => {
 
   return (<>
     {isDialogsLoads && <Preloader />}
-    <div>
+    <div className={s.mainChatContainer}>
       <h1>{title}</h1>
       <Chat />
     </div></>
