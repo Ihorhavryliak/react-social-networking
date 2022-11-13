@@ -27,7 +27,7 @@ border-radius: 50%;
 .sectionInformation{
   display: grid;
   grid-column: auto;
-  grid-template-columns: 2fr 9fr;
+  grid-template-columns: minmax(200px, 2fr) minmax(200px, 9fr)  ;
   grid-column-gap: 20px ;
 }
 .status{

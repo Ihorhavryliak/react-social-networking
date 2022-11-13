@@ -38,7 +38,7 @@ export const initilizeAPP = ()  => (dispatch: DispatchType) => {
   Promise.all([promis]).then(() => {
     dispatch(action.initiationSucced())
   })
-
+ debugger
 }
 
 

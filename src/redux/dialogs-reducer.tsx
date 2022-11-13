@@ -196,8 +196,15 @@ export const isMessageView = (messageId: string): ThunkType => async (dispatch) 
 }
 
 export const messegeDisCount = (): ThunkType => async (dispatch) => {
+  try{ 
+    dispatch(actionsUserReducer.toggleIsFerhing(true));
   const count = await dialogsAPI.messageCount();
   dispatch(actionsDialog.countMessege(count));
+  dispatch(actionsUserReducer.toggleIsFerhing(false));
+}  catch (error: any) {
+    dispatch(actionsUserReducer.toggleIsFerhing(false));
+     alert('Reload The Page Please. ' +  error.request.response + ' ' + error) ;
+   }
 }
 
 export const spamSendMessage = (messegeId: string): ThunkType => async (dispatch) => {

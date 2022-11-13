@@ -78,7 +78,12 @@ export const login = (email: string, password: string, remeberMe: boolean, captc
       dispatch(stopSubmit('login', { _error: messege }));
     }
     dispatch(actionsUserReducer.toggleIsFerhing(false));
+    if (data.resultCode === 1) {
+      alert(data.messages[0])
+    }
+
   } catch (error: any) {
+  
     dispatch(actionsUserReducer.toggleIsFerhing(false));
     alert('Reload The Page Please. ' + error.request.response + ' ' + error);
   }
