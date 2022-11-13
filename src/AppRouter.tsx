@@ -6,12 +6,12 @@ import { LoginPage } from './components/Login/LoginPage';
 import React, { Suspense } from 'react';
 import Preloader from './components/Common/Preloader/Preloader';
 import { ErrorPage } from './components/ErrorPage/404';
-import { UserPage } from './components/Users/UserPage';
+
 import FriendListOfMessege from './components/Dialogs/DialogItem/FriendListOfMessege';
 import SearchMessage from './components/Dialogs/DialogItem/SearchMessage';
 import { ProfileContainer, ChatPage } from './App';
 import  DialogsPageMain  from './components/Dialogs/DialogsPageMain';
-
+export const UserPage = React.lazy(() => import('./components/Users/UserPage'));
 
 export const AppRouter = () => {
   return (
