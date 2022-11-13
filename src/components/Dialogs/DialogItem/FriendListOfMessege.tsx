@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import { getAllDialogs, getCountPage, getFrendMesseges, getMyId, getMyPhoto, getSaveFilterPage, } from "../../../redux/dialog-selector";
+import { getAllDialogs, getCountPage, getFrendMesseges, getItems, getMyId, getMyPhoto, getSaveFilterPage, getSaveUserPhotosArr, } from "../../../redux/dialog-selector";
 import { deleteMyMessage, messegeDisCount, reciveDataMessege, restorMessage, sentFriendMesege, setDialog, setItemFriendMessages, spamSendMessage } from "../../../redux/dialogs-reducer";
 import { getUserProfile } from "../../../redux/profile_reducer";
 import { AppDispatch } from "../../../redux/redux-store";
@@ -30,7 +30,8 @@ const FriendListOfMessege = React.memo(() => {
   const [isRestore, setIsRestore] = useState(false);
   const [isRestoreSpam, setIsRestoreSpam] = useState(false);
   const SaveFilterPage = useSelector(getSaveFilterPage);
-
+  const dialogsItems = useSelector(getItems);
+  const saveUserPhotosArr  = useSelector(getSaveUserPhotosArr)
   const navigate = useNavigate();
   const location = useLocation();
   let friendId = '';
@@ -147,25 +148,46 @@ const FriendListOfMessege = React.memo(() => {
     }
   }, [bodyMessege])
 
-
-  let recivePhoto;
-  if (bodyMessege.length > 0 && dialogs.length > 0) {
+let recivePhoto;
+if( !dialogs.some(f => f.id === +friendId )) {
+  const getObj = saveUserPhotosArr.filter(m => m.id === +friendId)
+  if (getObj.length > 0 && getObj[0].photo !== null) {
+    recivePhoto = getObj[0].photo
+  } else {
+     recivePhoto = notPhoto
+  }
+} else {
+  if (dialogs.length > 0) {
     let obgUserReciver = dialogs.filter(f => f.id === +friendId);
-    if (obgUserReciver.length > 1 && obgUserReciver[0].photos?.small !== null) {
+    if (obgUserReciver.length > 0 && obgUserReciver[0].photos?.small !== null) {
       recivePhoto = obgUserReciver[0].photos?.small
     }
   } 
+}
+  
+
 
   let reciveName;
-  if(dialogs.length > 0) {
+  if( !dialogs.some(f => f.id === +friendId ) ) {
     debugger
-    let obgUserReciver = dialogs.filter(f => f.id === +friendId);
-    if(obgUserReciver.length > 0){
-      reciveName = obgUserReciver[0].userName;
+    const getObj = saveUserPhotosArr.filter(m => m.id === +friendId)
+    if (getObj.length > 0 ) {
+      reciveName = getObj[0].name
+    } else {
+      reciveName = 'User'
     }
   } else {
-    reciveName = 'User'
+    if(dialogs.length > 0) {
+      let obgUserReciver = dialogs.filter(f => f.id === +friendId);
+      if(obgUserReciver.length > 0 && obgUserReciver[0] !== undefined ){
+        reciveName = obgUserReciver[0].userName;
+      }else {
+        reciveName = 'User'
+      }
+    } 
+  
   }
+
   
 
   let notPhotoTwo: any;
@@ -174,7 +196,7 @@ const FriendListOfMessege = React.memo(() => {
   } else {
     notPhotoTwo = myPhoto
   }
- 
+
   return (
     <>
       {isDialogsLoads && <Preloader />}

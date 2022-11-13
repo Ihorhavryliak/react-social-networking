@@ -8,23 +8,20 @@ import style from './../Common/Preloader/FormControl/FormsControl.module.css'
 import { AppDispatch, AppStateType } from '../../redux/redux-store';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { Button } from 'antd';
 
 type LoginFormOwnPropsType = {
   capcahUrl: string | null
 }
 
 const LoginForm: React.FC<InjectedFormProps<LoginFormValuesType, LoginFormOwnPropsType> & LoginFormOwnPropsType> = ({ handleSubmit, error, capcahUrl }) => {
-
+document.title = 'Login';
   return (
     <form onSubmit={handleSubmit} className={style.loginForm} >
       {creatField<LoginFormValuesKeysType>('Email', 'email', [reqiaret], Input)}
       {creatField<LoginFormValuesKeysType>('Password', 'password', [reqiaret], Input, { type: 'password' })}
       {creatField<LoginFormValuesKeysType>(undefined, 'remeberMe', [], Input, { type: 'checkbox' }, 'Remember me')}
-
       {capcahUrl && <img alt='captcha' src={capcahUrl} />}
       {capcahUrl && creatField('Symbols from inage', 'captcha', [reqiaret], Input, {})}
-
       {error && <div className={style.formSUmmeryError}>{error}</div>}
       <div><button className='ant-btn ant-btn-default'>Login</button></div>
     </form>
@@ -61,6 +58,16 @@ export const LoginPage: React.FC = (props) => {
     <div>
       <h1>Login</h1>
       <LoginReduxForm onSubmit={onSubmin} capcahUrl={capcahUrl} />
+      <div className={style.loginInform}>
+     <div className={style.informTextTitle}> Data for log in:</div>
+      <div className={style.inforOneUser}> User one:</div>
+      <div>Email: <div> <b>maysterukraina@gmail.com</b></div></div>
+      <div>Password: <div> <b>maysterukraina@gmail.com</b></div></div>
+          <hr/>
+      <div className={style.inforTwoUser}> User two:</div>
+      <div>Email: <div> <b>ih.havryliak@gmail.com</b></div></div>
+      <div>Password: <div> <b>ih.havryliak@gmail.com</b></div></div>
+      </div>
     </div>
   )
 }

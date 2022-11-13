@@ -25,9 +25,7 @@ const ProfileDataForm: React.FC<InjectedFormProps<ProfileType, PropsType > & Pro
              <span className={s.closeWindow} onClick={closeEditMode}>X</span>
    <form onSubmit={handleSubmit} className={s.profileEditForm}>
   {error && <div className={s.formSUmmeryError}>{error}</div>}  
- 
-      <div>
-
+      <div className={s.blockFormUserInfo}>
         <div>
           <b>Full Name</b>: {creatField<ProfileTypeKeys>('FullName', 'fullName', [cantNull], Input)}
         </div>
@@ -35,12 +33,10 @@ const ProfileDataForm: React.FC<InjectedFormProps<ProfileType, PropsType > & Pro
           <b>Looking a job:</b>
           {creatField<ProfileTypeKeys>('', 'lookingForAJob', [], Input, { type: 'checkbox' })}
           </div>
-    
             <div>
               <b>My profesion skils</b>:
               {creatField<ProfileTypeKeys>('My profesion skils', 'lookingForAJobDescription', [cantNull], Textarea)}
             </div>
-
           <div />
           <div>
             <b>About me</b> :

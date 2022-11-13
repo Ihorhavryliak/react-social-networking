@@ -2,7 +2,7 @@
   max-width: 400px;
 }
 .descri_pbloxk{
-  padding: 10px;
+ /*  padding: 10px; */
 }
 .mainPhoto{
  max-width:  250px;
@@ -37,10 +37,10 @@ border-radius: 50%;
 .statusName{
   padding: 2px 12px;
 }
-.fieldStatus{
-  background: #e6e6e6 ;
+.fieldStatus, .fieldStatusActivate{
+  background: #abc1d24e ;
   border: none ;
-  padding: 2px 12px;
+  padding: 4px 12px;
   border-radius: 0px 4px 0px 0px;
 }
 .file {
@@ -53,17 +53,20 @@ border-radius: 50%;
   grid-template-columns: 100px 3fr;
 }
 .profileEditForm{
-  max-width: 400px;
+  display: grid;
+    justify-content: center;
 }
 .windowForm{
-  width: 60%;
+  width: 100%;
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: rgb(102, 102, 102);
-  padding: 50px;
-  /* zIndex: 1000; */
+  background-color: #1f1e1e7a;
+  padding: 3%;
+  height: 100%;
+  overflow: auto;
+  z-index: 100;
 }
 .closeWindow{
   float: right;
@@ -76,4 +79,13 @@ border-radius: 50%;
 }
 .closeWindow:hover{
   color: rgb(20, 164, 212);
+}
+.blockFormUserInfo{
+  background: #fff;
+  padding: 15px 15px;
+  width: 500px;
+  border-radius: 4px;
+}
+.fieldStatusActivate{
+  background-color: #fff;
 }

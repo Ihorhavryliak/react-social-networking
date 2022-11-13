@@ -6,7 +6,7 @@ import React, { ChangeEvent, useState } from 'react';
 import ProfileDataForm from './ProfileDataForm';
 import { ProfilesType } from '../Profile';
 import { ContactsType, ProfileType } from '../../../types/types';
-import { Button,  Input } from 'antd';
+import { Button, Input } from 'antd';
 import { getisSetDate } from '../../../redux/profile-selectors';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
@@ -17,15 +17,15 @@ import { useNavigate } from 'react-router-dom';
 
 const ProfileInfo: React.FC<ProfilesType> = ({ profile, status, upDateStatuses, isOwner, savePhoto, saveProfile, isFecbg }) => {
 
-  const isSetDate= useSelector(getisSetDate) ;
+  const isSetDate = useSelector(getisSetDate);
   const history = useNavigate()
   const dispatch = useDispatch();
 
   if (!profile) {
     return <Preloader />
   }
-  
-  const mainPhotoSelect = (e: ChangeEvent<HTMLInputElement> ) => {
+
+  const mainPhotoSelect = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files?.length) {
       savePhoto(e.target.files[0])
     }
@@ -36,34 +36,34 @@ const ProfileInfo: React.FC<ProfilesType> = ({ profile, status, upDateStatuses, 
   }
 
   const goToEditMode = () => {
-    dispatch(actions.closeEditForm(true)) 
+    dispatch(actions.closeEditForm(true))
   }
   const closeEditMode = () => {
-    dispatch(actions.closeEditForm(false)) 
+    dispatch(actions.closeEditForm(false))
   }
- 
+
   const createChat = (userId: number) => {
-     history(`/dialogs/${userId}/`)
+    history(`/dialogs/${userId}/`)
   }
 
   return (
     <div className={s.sectionInformation} >
       <div>
-      <img alt='photos' src={profile.photos.large || userPhoto} className={s.mainPhoto} />
-      <div className={s.containerFileGrid}>
-        <div>
-        {isOwner ? <Input name='sdd' className={s.file}  type={'file'} onChange={mainPhotoSelect} />
-        : <div><Button onClick={() => createChat(profile.userId)}>Send Message</Button></div>}
+        <img alt='photos' src={profile.photos.large || userPhoto} className={s.mainPhoto} />
+        <div className={s.containerFileGrid}>
+          <div>
+            {isOwner ? <Input name='sdd' className={s.file} type={'file'} onChange={mainPhotoSelect} />
+              : <div><Button onClick={() => createChat(profile.userId)}>Send Message</Button></div>}
+          </div>
+          <div>
+            {isOwner && <div> <Button onClick={goToEditMode}>Edit information</Button></div>}
+          </div>
         </div>
-        <div>
-        { isOwner && <div> <Button onClick={goToEditMode}>Edit information</Button></div>}
-        </div>
-      </div>
       </div>
       <div className={s.descri_pbloxk}>
-        <ProfileStatusWithHooks status={status} upDateStatuses={upDateStatuses}  isOwner={isOwner} />
-        {  isSetDate ?  <ProfileDataForm initialValues={profile}  isFecbg={isFecbg} onSubmit={getFormData} closeEditMode={closeEditMode} profile={profile} />
-          : <ProfileData  profile={profile}  />}
+        <ProfileStatusWithHooks status={status} upDateStatuses={upDateStatuses} isOwner={isOwner} />
+        {isSetDate ? <ProfileDataForm initialValues={profile} isFecbg={isFecbg} onSubmit={getFormData} closeEditMode={closeEditMode} profile={profile} />
+          : <ProfileData profile={profile} />}
       </div>
     </div>
   )
@@ -71,22 +71,21 @@ const ProfileInfo: React.FC<ProfilesType> = ({ profile, status, upDateStatuses, 
 
 
 type ProfileDataType = {
-  profile: ProfileType, 
+  profile: ProfileType,
 
 }
 
-const ProfileData: React.FC<ProfileDataType> = ({ profile}) => {
+const ProfileData: React.FC<ProfileDataType> = ({ profile }) => {
   return (
     <div className={s.blockDescripsin}>
-     
       {profile.fullName && <div>
         <b>Full Name</b> {profile.fullName}
-      </div> }
+      </div>}
       {profile.lookingForAJob &&
-      <div>
-        <b>Looking a job:</b>  {profile.lookingForAJob === true ? 'yes' : 'no'}
-      </div>
-       }
+        <div>
+          <b>Looking a job:</b>  {profile.lookingForAJob === true ? 'yes' : 'no'}
+        </div>
+      }
       <div>
         {profile.lookingForAJobDescription &&
           <div>
@@ -95,31 +94,27 @@ const ProfileData: React.FC<ProfileDataType> = ({ profile}) => {
         }
         <div />
         {profile.aboutMe &&
-        <div>
-          <b>About me</b> : {profile.aboutMe}
-        </div>
+          <div>
+            <b>About me</b> : {profile.aboutMe}
+          </div>
         }
-        {Object.keys(profile.contacts).map((key, id) => !profile.contacts[key as keyof ContactsType]) && 
-        <div>
-         {Object.keys(profile.contacts).some(k => console.log(profile.contacts[k as keyof ContactsType] !== null) ) && <b>Contacts</b> } 
-         
-          {Object.keys(profile.contacts).map((key, id) => {
-            return <Contact key={id + key} contactTitle={key} contactValua={profile.contacts[key as keyof ContactsType ]} />
-          })}
-        </div>
+        {Object.keys(profile.contacts).some(k =>
+          profile.contacts[k as keyof ContactsType] !== null && profile.contacts[k as keyof ContactsType].length > 0) &&
+          <div>
+            <b>Contacts:</b>
+            {Object.keys(profile.contacts).map((key, id) => {
+              return <Contact key={id + key} contactTitle={key} contactValua={profile.contacts[key as keyof ContactsType]} />
+            })}
+          </div>
         }
       </div>
     </div>
   )
 }
 
-type ContactType = {
-  contactTitle: string 
-  contactValua: string
-}
 
 const Contact: React.FC<ContactType> = ({ contactTitle, contactValua }) => {
-  if(!contactValua) return null;
+  if (!contactValua) return null;
   return (
     <div className={s.contact} >
       <b >{contactTitle}</b>: {contactValua}
@@ -128,3 +123,8 @@ const Contact: React.FC<ContactType> = ({ contactTitle, contactValua }) => {
 }
 
 export default ProfileInfo;
+
+type ContactType = {
+  contactTitle: string
+  contactValua: string
+}

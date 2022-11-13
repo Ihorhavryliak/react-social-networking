@@ -155,6 +155,10 @@ export const sentFriendMesege = (friendId: number, message: string): ThunkType =
   try{ 
   dispatch(actionsUserReducer.toggleIsFerhing(true));
   const resp = await dialogsAPI.sendFriandeMessege(friendId, message);
+  if (resp.resultCode === 1) {
+    dispatch(actionsUserReducer.toggleIsFerhing(false));
+    alert(resp.messages[0])
+  }
   dispatch(setItemFriendMessages(friendId));
   dispatch(actionsUserReducer.toggleIsFerhing(false));
 } catch (error: any) {

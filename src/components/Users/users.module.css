@@ -4,42 +4,45 @@
   margin-bottom: 5px;
 }
 
-.buttonFollow{
+.buttonFollow {
   margin-right: 5px;
 }
 
 .searchFormUser {
-  padding: 4px 5px;
-border-radius: 2px;
-border: 1px solid #d9d9d9;
-margin-right: 2px;
-position: relative;
-top: 1px
+  padding: 6px 10px;
+  border-radius: 2px;
+  border: 1px solid #d9d9d9;
+  margin-right: 2px;
+  position: relative;
+  top: 0px;
 }
-.blockUsersList{
+
+.blockUsersList {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   grid-gap: 1px;
   justify-items: center;
-   background-color: rgb(255, 255, 255);
-margin-top: 10px;
-max-width: 1200px;
+  background-color: rgb(255, 255, 255);
+  margin-top: 10px;
+  max-width: 100%;
 }
-.oneUserSearch{
+
+.oneUserSearch {
   display: grid;
   justify-items: center;
-  padding: 20px;
+  padding: 10px;
   width: 100%;
- border-right: 1px solid #ddd;
- border-bottom: 1px solid #ddd;
-  border-radius: 2px; 
+  border-right: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  border-radius: 2px;
 
 }
-.oneUserSearch :hover{
-cursor: pointer;
+
+.oneUserSearch :hover {
+  cursor: pointer;
 }
 
-.status{
+.status {
   min-height: 22px;
   font-weight: bold;
   white-space: nowrap;
@@ -47,17 +50,20 @@ cursor: pointer;
   text-overflow: ellipsis;
   max-width: 100%;
 }
-.nameUser{
-font-size: 16px;
-white-space: nowrap;
-overflow: hidden;
-text-overflow: ellipsis;
-max-width: 100%;
+
+.nameUser {
+  font-size: 16px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
 }
+
 .errorFiledMessage {
   color: red;
 
 }
-.errorField{
+
+.errorField {
   display: inline-grid;
 }

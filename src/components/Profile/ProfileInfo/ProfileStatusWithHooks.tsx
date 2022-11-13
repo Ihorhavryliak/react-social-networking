@@ -45,12 +45,14 @@ const ProfileStatusWithHooks: React.FC<ProfileStatusWithHooksType> = (props) => 
 
       {!editMode &&
         <div className={style.status}>
-          {/* <span className={style.statusName}> <b>Status</b>:</span> */} <span>   <Input disabled={!props.isOwner}  className={style.fieldStatus} value={status || '----'} onClick={activateMode} /></span>
+          {/* <span className={style.statusName}> <b>Status</b>:</span> */} 
+          <span>   <Input disabled={!props.isOwner}  className={style.fieldStatus} value={status || 'Your status'} onClick={activateMode} /></span>
         </div>
       }
       {editMode &&
         <div className={style.status}>
-          {/* <span className={style.statusName}> <b>Status</b>:</span> */}<span>   <Input className={style.fieldStatus} onChange={onStatusChange} autoFocus={true} onBlur={deActivateAditMod}
+          {/* <span className={style.statusName}> <b>Status</b>:</span> */}
+          <span>   <Input className={style.fieldStatusActivate} onChange={onStatusChange} autoFocus={true} onBlur={deActivateAditMod}
             value={statuse} /></span>
         </div>
       }

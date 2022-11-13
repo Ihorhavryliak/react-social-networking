@@ -10,7 +10,7 @@ import { LoginPage } from '../Login/LoginPage';
 
 
 const DialogsPageMain = React.memo(() => {
-  const title = 'All dialogs';
+  const title = 'All message';
   document.title = title;
   const isDialogsLoads = useSelector(getSsFeching);
   const isAuth = useSelector(getisAiuth);

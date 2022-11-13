@@ -52,3 +52,14 @@ export const getCountPage = (state: AppStateType) => {
 export const getSaveFilterPage = (state: AppStateType) => {
   return state.dialogs.saveFilterPage
 }
+
+export const getItems = (state: AppStateType) => {
+  return state.dialogs.items
+}
+export const getSaveUserPhotosArr = (state: AppStateType) => {
+  return state.profilePage.userPhotos
+}
+
+export const getIsFeching = (state: AppStateType) => {
+  return state.userPage.isFeching
+}

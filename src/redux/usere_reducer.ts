@@ -8,7 +8,7 @@ import { FormAction } from 'redux-form';
 
 let initialState = {
   users: [] as Array<UserType>,
-  pageSize: 12,
+  pageSize: 15,
   totalUserCount: 0,
   curruntPage: 1,
   isFeching: false,

@@ -64,7 +64,7 @@ class App extends React.Component<MapPropsType & DispatchPropsType> {
               items={
                 [
                   {
-                    label: 'My profile', key: '1', type: 'group',
+                    label: '', key: '1', type: 'group',
                     children: [{ label: <NavLink to="/profile">Profile</NavLink>, key: '2', icon: <UserOutlined /> },
                     { label: <NavLink to="/dialogs">Message</NavLink>, key: '3', icon: <MailOutlined /> },
                     { label: <NavLink to="/users">Users</NavLink>, key: '4', icon: <TeamOutlined /> },
@@ -92,7 +92,7 @@ class App extends React.Component<MapPropsType & DispatchPropsType> {
               padding: '0 24px 24px',
             }}
           >
-            <Breadcrumb
+            {/* <Breadcrumb
               style={{
                 margin: '16px 0',
               }}
@@ -100,7 +100,7 @@ class App extends React.Component<MapPropsType & DispatchPropsType> {
               <Breadcrumb.Item>Home</Breadcrumb.Item>
               <Breadcrumb.Item>List</Breadcrumb.Item>
               <Breadcrumb.Item>App</Breadcrumb.Item>
-            </Breadcrumb>
+            </Breadcrumb> */}
             <Content
               className="site-layout-background"
               style={{
