@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/reaxt-social-netwoeking/static/css/main.a6011a14.css",
-    "main.js": "/reaxt-social-netwoeking/static/js/main.c8c3e648.js",
+    "main.js": "/reaxt-social-netwoeking/static/js/main.a5081575.js",
     "static/css/523.ec9a2527.chunk.css": "/reaxt-social-netwoeking/static/css/523.ec9a2527.chunk.css",
     "static/js/523.5b341ade.chunk.js": "/reaxt-social-netwoeking/static/js/523.5b341ade.chunk.js",
     "static/css/114.b4edc6fc.chunk.css": "/reaxt-social-netwoeking/static/css/114.b4edc6fc.chunk.css",
@@ -12,7 +12,7 @@
     "static/media/load.svg": "/reaxt-social-netwoeking/static/media/load.ce53bc7adbad552840be831d7f72b954.svg",
     "index.html": "/reaxt-social-netwoeking/index.html",
     "main.a6011a14.css.map": "/reaxt-social-netwoeking/static/css/main.a6011a14.css.map",
-    "main.c8c3e648.js.map": "/reaxt-social-netwoeking/static/js/main.c8c3e648.js.map",
+    "main.a5081575.js.map": "/reaxt-social-netwoeking/static/js/main.a5081575.js.map",
     "523.ec9a2527.chunk.css.map": "/reaxt-social-netwoeking/static/css/523.ec9a2527.chunk.css.map",
     "523.5b341ade.chunk.js.map": "/reaxt-social-netwoeking/static/js/523.5b341ade.chunk.js.map",
     "114.b4edc6fc.chunk.css.map": "/reaxt-social-netwoeking/static/css/114.b4edc6fc.chunk.css.map",
@@ -21,6 +21,6 @@
   },
   "entrypoints": [
     "static/css/main.a6011a14.css",
-    "static/js/main.c8c3e648.js"
+    "static/js/main.a5081575.js"
   ]
 }
