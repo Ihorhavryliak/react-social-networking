@@ -26,12 +26,12 @@ const Headers: React.FC<MapPropsType> = (props) => {
   const messegeCount = useSelector(getMessegeCount);
   const userId = useSelector((state: AppStateType) => state.auth.userId);
   const dateSavePhotoArr = useSelector((state: AppStateType) => state.profilePage.userPhotos);
- 
+
   useEffect(() => {
     if (isAuth) {
       dispatch(messegeDisCount());
     }
-  }, [messegeCount]);
+  }, [messegeCount, isAuth]);
 
   useEffect(() => {
     if (userId !== null) {
