@@ -10,7 +10,7 @@ export const FooterBlock = React.memo(() => {
         textAlign: 'center',
       }}
     >
-      2022 - Created by Ihor Havryliak
+     <a target='_blank' href="https://github.com/Ihorhavryliak/reaxt-social-netwoeking/tree/Developer">2022 - Created by Ihor Havryliak</a> 
     </Footer>
   );
 }

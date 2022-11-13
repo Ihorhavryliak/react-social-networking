@@ -1,8 +1,6 @@
-import Avatar from 'antd/lib/avatar';
 import { Col, Row } from 'antd/lib/grid';
 import Layout from 'antd/lib/layout';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
-import { UserOutlined } from '@ant-design/icons';
+import { Link, useNavigate } from 'react-router-dom';
 import { getIsAuth, getLogin } from '../../redux/auth-selectors';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
@@ -28,8 +26,11 @@ const Headers: React.FC<MapPropsType> = (props) => {
   const messegeCount = useSelector(getMessegeCount);
   const userId = useSelector((state: AppStateType) => state.auth.userId);
   const dateSavePhotoArr = useSelector((state: AppStateType) => state.profilePage.userPhotos);
+ 
   useEffect(() => {
-    dispatch(messegeDisCount());
+    if (isAuth) {
+      dispatch(messegeDisCount());
+    }
   }, [messegeCount]);
 
   useEffect(() => {

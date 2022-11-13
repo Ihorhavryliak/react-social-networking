@@ -34,15 +34,18 @@ export const actions = {
   getCapchaUrlSuccess: (capcahUrl: string) => ({ type: 'RSN/auth/GET_CAPTHA_URLL_SUCCESS', payload: { capcahUrl } } as const)
 }
 //thunk
-export const getAutUserDate = (): ThunkType => async (dispatch) => {
+export const getAutUserDate = (): ThunkType => async (dispatch, getState) => {
   try {
+    const getIsAuth = getState().auth.isAuth;
     dispatch(actionsUserReducer.toggleIsFerhing(true));
     let meData = await authAPI.me();
     if (meData.resultCode === ResultCodeEnum.Sucsses) {
       let { id, login, email } = meData.data;
       dispatch(actions.setAuthUserData(id, login, email, true));
     }
-    dispatch(messegeDisCount());
+    if(getIsAuth) {
+      dispatch(messegeDisCount());
+    }
     dispatch(actionsUserReducer.toggleIsFerhing(false));
   } catch (error: any) {
     dispatch(actionsUserReducer.toggleIsFerhing(false));
@@ -78,9 +81,6 @@ export const login = (email: string, password: string, remeberMe: boolean, captc
       dispatch(stopSubmit('login', { _error: messege }));
     }
     dispatch(actionsUserReducer.toggleIsFerhing(false));
-    if (data.resultCode === 1) {
-      alert(data.messages[0])
-    }
 
   } catch (error: any) {
   

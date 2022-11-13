@@ -1,15 +1,12 @@
 import './App.css';
 import { NavLink, useLocation } from 'react-router-dom';
 import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
-import withRouter from './hoc/withProfileUrl';
-import { compose } from 'redux';
 import { initilizeAPP } from './redux/app-reducer';
 import Preloader from './components/Common/Preloader/Preloader';
 import { AppDispatch, AppStateType } from './redux/redux-store';
 import 'antd/dist/antd.min.css';
 import { UserOutlined, SoundOutlined, TeamOutlined, MailOutlined } from '@ant-design/icons';
-import { Layout, Menu } from 'antd';
+import { Layout } from 'antd';
 import Headers from './components/Header/Header';
 import { AppRouter } from './AppRouter';
 import { FooterBlock } from './components/FooterBlock';
@@ -47,8 +44,6 @@ const App: React.FC<DispatchPropsType> = (props) => {
   const initial = useSelector((state: AppStateType) => state.app.initial);
   const dispatch: AppDispatch = useDispatch();
   const location = useLocation();
-  console.log(location.pathname);
-
   let urlPage = '';
   for (let i = 1; i < location.pathname.length; i++) {
     if (location.pathname[i] === '/' ||  location.pathname[i] ===  '?') {

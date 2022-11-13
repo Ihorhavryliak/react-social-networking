@@ -59,7 +59,7 @@ export const LoginPage: React.FC = (props) => {
       <h1>Login</h1>
       <LoginReduxForm onSubmit={onSubmin} capcahUrl={capcahUrl} />
       <div className={style.loginInform}>
-     <div className={style.informTextTitle}> Data for log in:</div>
+     <div className={style.informTextTitle}> Data for log in (you can have only one active session with one of users):</div>
       <div className={style.inforOneUser}> User one:</div>
       <div>Email: <div> <b>maysterukraina@gmail.com</b></div></div>
       <div>Password: <div> <b>maysterukraina@gmail.com</b></div></div>
