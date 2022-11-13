@@ -1,26 +1,32 @@
 {
   "files": {
-    "main.css": "/reaxt-social-netwoeking/static/css/main.a6011a14.css",
-    "main.js": "/reaxt-social-netwoeking/static/js/main.a5081575.js",
+    "main.css": "/reaxt-social-netwoeking/static/css/main.ef7b4263.css",
+    "main.js": "/reaxt-social-netwoeking/static/js/main.17b56d99.js",
     "static/css/523.ec9a2527.chunk.css": "/reaxt-social-netwoeking/static/css/523.ec9a2527.chunk.css",
     "static/js/523.5b341ade.chunk.js": "/reaxt-social-netwoeking/static/js/523.5b341ade.chunk.js",
     "static/css/114.b4edc6fc.chunk.css": "/reaxt-social-netwoeking/static/css/114.b4edc6fc.chunk.css",
     "static/js/114.e3640522.chunk.js": "/reaxt-social-netwoeking/static/js/114.e3640522.chunk.js",
+    "static/css/264.8c220998.chunk.css": "/reaxt-social-netwoeking/static/css/264.8c220998.chunk.css",
+    "static/js/264.5c98c870.chunk.js": "/reaxt-social-netwoeking/static/js/264.5c98c870.chunk.js",
+    "static/js/20.c84cf3df.chunk.js": "/reaxt-social-netwoeking/static/js/20.c84cf3df.chunk.js",
     "static/js/987.6b6015cd.chunk.js": "/reaxt-social-netwoeking/static/js/987.6b6015cd.chunk.js",
     "static/media/image-user.png": "/reaxt-social-netwoeking/static/media/image-user.5349bef4f7e335fc7618.png",
     "static/media/logo.png": "/reaxt-social-netwoeking/static/media/logo.71fd08308d3ec85a35ea.png",
     "static/media/load.svg": "/reaxt-social-netwoeking/static/media/load.ce53bc7adbad552840be831d7f72b954.svg",
     "index.html": "/reaxt-social-netwoeking/index.html",
-    "main.a6011a14.css.map": "/reaxt-social-netwoeking/static/css/main.a6011a14.css.map",
-    "main.a5081575.js.map": "/reaxt-social-netwoeking/static/js/main.a5081575.js.map",
+    "main.ef7b4263.css.map": "/reaxt-social-netwoeking/static/css/main.ef7b4263.css.map",
+    "main.17b56d99.js.map": "/reaxt-social-netwoeking/static/js/main.17b56d99.js.map",
     "523.ec9a2527.chunk.css.map": "/reaxt-social-netwoeking/static/css/523.ec9a2527.chunk.css.map",
     "523.5b341ade.chunk.js.map": "/reaxt-social-netwoeking/static/js/523.5b341ade.chunk.js.map",
     "114.b4edc6fc.chunk.css.map": "/reaxt-social-netwoeking/static/css/114.b4edc6fc.chunk.css.map",
     "114.e3640522.chunk.js.map": "/reaxt-social-netwoeking/static/js/114.e3640522.chunk.js.map",
+    "264.8c220998.chunk.css.map": "/reaxt-social-netwoeking/static/css/264.8c220998.chunk.css.map",
+    "264.5c98c870.chunk.js.map": "/reaxt-social-netwoeking/static/js/264.5c98c870.chunk.js.map",
+    "20.c84cf3df.chunk.js.map": "/reaxt-social-netwoeking/static/js/20.c84cf3df.chunk.js.map",
     "987.6b6015cd.chunk.js.map": "/reaxt-social-netwoeking/static/js/987.6b6015cd.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.a6011a14.css",
-    "static/js/main.a5081575.js"
+    "static/css/main.ef7b4263.css",
+    "static/js/main.17b56d99.js"
   ]
 }
