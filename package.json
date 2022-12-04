@@ -1,7 +1,7 @@
 {
   "name": "my-app",
   "version": "0.1.0",
-  "homepage": "https://ihorhavryliak.github.io/reaxt-social-netwoeking",
+  "homepage": "https://ihorhavryliak.github.io/react-social-networking",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.5",
