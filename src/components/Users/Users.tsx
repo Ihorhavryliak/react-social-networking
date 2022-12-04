@@ -23,9 +23,7 @@ type UsersType = {
 
 export const Users: React.FC<UsersType> = (props) => {
 
-  useEffect(() => {
-    dispatch(reqestUser(curruntPage, pageSize, filter));
-  }, [])
+
 
   const users = useSelector(getUsersSelectorSuper);
   const totalUserCount = useSelector(getTotalUserCount);
@@ -34,10 +32,13 @@ export const Users: React.FC<UsersType> = (props) => {
   const filter = useSelector(getUsersFilter);
   const followingInProgres = useSelector(getFollowingInProgres);
   const dispatch: AppDispatch = useDispatch();
+  
+  useEffect(() => {
+    dispatch(reqestUser(curruntPage, pageSize, filter));
+  }, [])
 
   const location = useLocation();
   useEffect(() => {
-
     const queryString = require('query-string');
     const parsed = queryString.parse(location.search) as QueryParamsType;
     let actualFilter = filter;
@@ -64,10 +65,11 @@ export const Users: React.FC<UsersType> = (props) => {
   const history = useNavigate();
   useEffect(() => {
     const query: QueryParamsType = {};
+    debugger
     if (!!filter.term) { query.term = filter.term };
     if (filter.friend !== null) { query.friend = String(filter.friend) };
     if (curruntPage !== 1) { query.page = String(curruntPage) };
-
+    debugger
     const queryString = require('query-string');
     let queryStrings = queryString.stringify(query);
     history(`/users?` + queryStrings);
