@@ -63,10 +63,6 @@ export const LoginPage: React.FC = (props) => {
       <div className={style.inforOneUser}> User one:</div>
       <div>Email: <div> <b>maysterukraina@gmail.com</b></div></div>
       <div>Password: <div> <b>maysterukraina@gmail.com</b></div></div>
-          <hr/>
-      <div className={style.inforTwoUser}> User two:</div>
-      <div>Email: <div> <b>ih.havryliak@gmail.com</b></div></div>
-      <div>Password: <div> <b>ih.havryliak@gmail.com</b></div></div>
       </div>
     </div>
   )
