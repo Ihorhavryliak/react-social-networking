@@ -2,10 +2,11 @@
   max-width: 400px;
 }
 .descri_pbloxk{
-  padding: 10px;
+ /*  padding: 10px; */
 }
 .mainPhoto{
- max-width:  150px;
+ max-width:  250px;
+border-radius: 50%;
 }
 .contact{
  padding-left: 10px;
@@ -14,4 +15,77 @@
   border: 1px solid red;
   padding: 5px;
   color: brown;
+}
+
+.blockDescripsin{
+  padding: 10px 10px 10px 50px;
+
+  border-right: 1px dashed #a9a9a9;
+  border-bottom: 1px dashed #a9a9a9;
+}
+
+.sectionInformation{
+  display: grid;
+  grid-column: auto;
+  grid-template-columns: minmax(200px, 2fr) minmax(200px, 9fr)  ;
+  grid-column-gap: 20px ;
+}
+.status{
+  /* display: grid;
+  grid-template-columns: 60px 9fr; */
+}
+.statusName{
+  padding: 2px 12px;
+}
+.fieldStatus, .fieldStatusActivate{
+  background: #abc1d24e ;
+  border: none ;
+  padding: 4px 12px;
+  border-radius: 0px 4px 0px 0px;
+}
+.file {
+  max-width: 87px;
+    padding: 0;
+}
+.containerFileGrid{
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: 100px 3fr;
+}
+.profileEditForm{
+  display: grid;
+    justify-content: center;
+}
+.windowForm{
+  width: 100%;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #1f1e1e7a;
+  padding: 3%;
+  height: 100%;
+  overflow: auto;
+  z-index: 100;
+}
+.closeWindow{
+  float: right;
+  cursor: pointer;
+  color: white;
+  font-size: 29px;
+  font-weight: bold;
+  position: relative;
+  top: -32px;
+}
+.closeWindow:hover{
+  color: rgb(20, 164, 212);
+}
+.blockFormUserInfo{
+  background: #fff;
+  padding: 15px 15px;
+  width: 500px;
+  border-radius: 4px;
+}
+.fieldStatusActivate{
+  background-color: #fff;
 }
